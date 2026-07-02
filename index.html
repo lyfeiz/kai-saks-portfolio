@@ -444,7 +444,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   -webkit-backdrop-filter: blur(8px);
   align-items: center; justify-content: center; cursor: pointer;
 }
-.lightbox.open { display: flex; }
+/* .open class kept for reference; JS uses style.display directly */
 .lightbox-inner { display: flex; align-items: center; justify-content: center; }
 .lightbox-img {
   max-width: 80vw; max-height: 80vh; object-fit: contain;
@@ -1729,23 +1729,40 @@ document.querySelector('.view-all').addEventListener('keydown', e => {
 
 <script>
 (function(){
-  const lb = document.getElementById('logo-lightbox');
-  const lbImg = document.getElementById('lightbox-img');
-  function open(src, alt) {
-    lbImg.src = src; lbImg.alt = alt || '';
-    lb.classList.add('open');
+  var lb = document.getElementById('logo-lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+
+  function openLightbox(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lb.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }
-  function close() {
-    lb.classList.remove('open');
+  function closeLightbox() {
+    lb.style.display = 'none';
     document.body.style.overflow = '';
   }
-  lb.addEventListener('click', e => { if (e.target === lb || e.target.classList.contains('lightbox-close')) close(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-  // Attach to first set of ticker logos (not aria-hidden duplicates)
-  document.querySelectorAll('.exp-ticker-logo:not([aria-hidden])').forEach(img => {
-    img.addEventListener('click', () => open(img.src, img.alt));
+
+  // Close when clicking backdrop or X button
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb || e.target === lbImg.parentElement || e.target.classList.contains('lightbox-close')) {
+      closeLightbox();
+    }
   });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // Attach to all ticker logos (use event delegation on the track for reliability)
+  var track = document.querySelector('.exp-ticker-track');
+  if (track) {
+    track.addEventListener('click', function(e) {
+      var img = e.target.closest('.exp-ticker-logo');
+      if (img && !img.hasAttribute('aria-hidden')) {
+        openLightbox(img.src, img.alt);
+      }
+    });
+  }
 })();
 </script>
 </body>
