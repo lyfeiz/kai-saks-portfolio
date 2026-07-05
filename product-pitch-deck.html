@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlexCore EMS: Product Pitch Deck — Kai Saks</title>
+  <meta name="description" content="A full investor pitch deck demonstrating product thinking, market sizing, unit economics, and stakeholder storytelling.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300&family=Open+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+  <style>
+    /* ── DESIGN TOKENS ─────────────────────────────────────────── */
+    :root {
+      --navy:       #0A1172;
+      --sky:        #1383F4;
+      --mango:      #F6A205;
+      --neutral:    #EFECE1;
+      --slate:      #8A97A8;
+      --glass:      rgba(239,236,225,0.09);
+      --glass-border: rgba(239,236,225,0.14);
+      --grad-brand: linear-gradient(135deg, #0A1172 0%, #1383F4 55%, #F6A205 100%);
+      --font-head:  'Titillium Web', sans-serif;
+      --font-body:  'Open Sans', sans-serif;
+      --radius:     16px;
+      --nav-h:      68px;
+    }
+
+    /* ── RESET ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--neutral);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── NAV ───────────────────────────────────────────────────── */
+    .main-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 5vw, 60px);
+      background: rgba(10,17,114,0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 100;
+      transition: background 0.3s;
+    }
+    .main-nav.scrolled { background: rgba(10,17,114,0.95); }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      color: var(--neutral);
+      cursor: pointer;
+    }
+    .nav-logo span { color: var(--mango); }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(239,236,225,0.75);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--neutral); }
+    .nav-cta {
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--mango);
+      padding: 9px 20px;
+      border-radius: 8px;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── HERO ──────────────────────────────────────────────────── */
+    .artifact-hero {
+      padding-top: calc(var(--nav-h) + 60px);
+      padding-bottom: 48px;
+      padding-left: clamp(20px, 6vw, 80px);
+      padding-right: clamp(20px, 6vw, 80px);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 32px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--neutral); }
+    .back-link svg { flex-shrink: 0; }
+
+    .artifact-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .artifact-category-tag {
+      font-family: var(--font-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--mango);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .artifact-type-tag {
+      font-family: var(--font-head);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--slate);
+      border: 1px solid var(--glass-border);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .artifact-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.12;
+      color: var(--neutral);
+      margin-bottom: 20px;
+    }
+    .artifact-title em {
+      font-style: italic;
+      background: var(--grad-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .artifact-desc {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(239,236,225,0.75);
+      max-width: 680px;
+      margin-bottom: 36px;
+    }
+
+    /* ── SKILLS PILLS ──────────────────────────────────────────── */
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 48px;
+    }
+    .skill-pill {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--sky);
+      border: 1px solid rgba(19,131,244,0.35);
+      background: rgba(19,131,244,0.08);
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    /* ── PDF VIEWER ────────────────────────────────────────────── */
+    .pdf-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 6vw, 80px) 80px;
+    }
+    .pdf-label {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 16px;
+    }
+    .pdf-frame-wrap {
+      position: relative;
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      background: #1a1f6e;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+    }
+    .pdf-frame-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 80vh;
+      min-height: 600px;
+      border: none;
+      background: #fff;
+    }
+    /* Invisible overlay blocks right-click on the iframe — prevents "Save As" from iframe context menu */
+    .pdf-interaction-block {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 44px; /* covers the top toolbar area only */
+      z-index: 2;
+      cursor: default;
+    }
+
+    /* ── CONTEXT SECTION ───────────────────────────────────────── */
+    .context-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 6vw, 80px) 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 680px) {
+      .context-section { grid-template-columns: 1fr; }
+    }
+    .context-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+    }
+    .context-card h3 {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mango);
+      margin-bottom: 14px;
+    }
+    .context-card p, .context-card li {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(239,236,225,0.75);
+    }
+    .context-card ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .context-card ul li::before {
+      content: '→ ';
+      color: var(--sky);
+      font-weight: 700;
+    }
+
+    /* ── CTA STRIP ─────────────────────────────────────────────── */
+    .cta-strip {
+      background: var(--grad-brand);
+      padding: 60px clamp(20px, 6vw, 80px);
+      text-align: center;
+    }
+    .cta-strip h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    .btn-cta {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      transition: opacity 0.2s;
+    }
+    .btn-cta:hover { opacity: 0.88; }
+
+    /* ── FOOTER ────────────────────────────────────────────────── */
+    footer {
+      background: rgba(0,0,0,0.35);
+      border-top: 1px solid var(--glass-border);
+      padding: 32px clamp(20px, 6vw, 80px);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--neutral);
+      letter-spacing: 0.06em;
+    }
+    .footer-brand p {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.78rem;
+      color: var(--slate);
+      letter-spacing: 0;
+      margin-top: 2px;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--slate);
+      margin-top: 4px;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-nav a {
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--slate);
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--neutral); }
+
+    /* ── MOBILE NAV ────────────────────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--neutral);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,17,114,0.97);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--neutral);
+    }
+    .nav-overlay .overlay-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: var(--neutral);
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ── DIVIDER ───────────────────────────────────────────────── */
+    .section-divider {
+      max-width: 1100px;
+      margin: 0 auto 48px;
+      padding: 0 clamp(20px, 6vw, 80px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ───────────────────────────────────────────────────────── -->
+<nav class="main-nav" id="main-nav">
+  <a href="index.html" class="nav-logo">KAI <span>SAKS</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#works">Works</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Work With Me</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile overlay -->
+<div class="nav-overlay" id="nav-overlay">
+  <button class="overlay-close" id="overlay-close" aria-label="Close menu">&times;</button>
+  <a href="index.html#home">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#works">Works</a>
+  <a href="index.html#contact">Contact</a>
+</div>
+
+
+<!-- ── HERO ──────────────────────────────────────────────────────── -->
+<section class="artifact-hero">
+
+  <a href="index.html#works" class="back-link">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Works
+  </a>
+
+  <div class="artifact-meta-row">
+    <span class="artifact-category-tag">Product</span>
+    <span class="artifact-type-tag">Pitch Deck · 25 Slides</span>
+  </div>
+
+  <h1 class="artifact-title">FlexCore EMS:<br><em>Product Pitch Deck</em></h1>
+
+  <p class="artifact-desc">
+    A full investor pitch deck built for a wearable EMS fitness technology entering the North American market. Covers the market opportunity, science validation, unit economics, deployment strategy, and growth roadmap — structured to move a room from curiosity to conviction.
+  </p>
+
+  <div class="skills-row">
+    <span class="skill-pill">Market Sizing</span>
+    <span class="skill-pill">Competitive Analysis</span>
+    <span class="skill-pill">Unit Economics</span>
+    <span class="skill-pill">Financial Modeling</span>
+    <span class="skill-pill">Stakeholder Storytelling</span>
+    <span class="skill-pill">Go-to-Market Strategy</span>
+    <span class="skill-pill">Executive Communication</span>
+  </div>
+
+</section>
+
+
+<!-- ── PDF VIEWER ─────────────────────────────────────────────────── -->
+<section class="pdf-section">
+  <p class="pdf-label">Artifact Preview</p>
+  <div class="pdf-frame-wrap">
+    <div class="pdf-interaction-block" aria-hidden="true"></div>
+    <iframe
+      src="artifacts/sample-product-pitch-deck.pdf#toolbar=0&navpanes=0&view=FitH"
+      title="FlexCore EMS Product Pitch Deck"
+      loading="lazy"
+      allow="fullscreen"
+    ></iframe>
+  </div>
+</section>
+
+
+<!-- ── DIVIDER ────────────────────────────────────────────────────── -->
+<div class="section-divider"></div>
+
+
+<!-- ── CONTEXT CARDS ──────────────────────────────────────────────── -->
+<section class="context-section" aria-label="Artifact context">
+
+  <div class="context-card">
+    <h3>What This Demonstrates</h3>
+    <ul>
+      <li>Translating technical product features into investor-ready narrative</li>
+      <li>Market sizing with TAM/SAM/SOM breakdown</li>
+      <li>Unit economics and franchise revenue modeling</li>
+      <li>Competitive positioning and differentiation framing</li>
+      <li>Visual storytelling for executive and investor audiences</li>
+    </ul>
+  </div>
+
+  <div class="context-card">
+    <h3>Deck Structure</h3>
+    <ul>
+      <li>Market &amp; Problem — opportunity framing</li>
+      <li>Science &amp; Safety — clinical validation</li>
+      <li>Economics — unit model and margins</li>
+      <li>Deployment — go-to-market phasing</li>
+      <li>Growth — expansion roadmap</li>
+      <li>Execution — team and timeline</li>
+    </ul>
+  </div>
+
+</section>
+
+
+<!-- ── CTA STRIP ──────────────────────────────────────────────────── -->
+<section class="cta-strip">
+  <h2>Interested in what I can build for you?</h2>
+  <a href="index.html#contact" class="btn-cta">Work With Me →</a>
+</section>
+
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      KAI SAKS
+      <p>The Efficiency Alchemist</p>
+      <p class="footer-copy">© 2026 Kai Saks. All rights reserved.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#works">Works</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+
+<script>
+/* ─── NAV SCROLL ─────────────────────────────────────────── */
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ─── MOBILE MENU ────────────────────────────────────────── */
+const hamburger = document.getElementById('hamburger');
+const overlay   = document.getElementById('nav-overlay');
+const closeBtn  = document.getElementById('overlay-close');
+
+hamburger.addEventListener('click', () => {
+  const isOpen = overlay.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+closeBtn.addEventListener('click', closeMenu);
+overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+function closeMenu() {
+  overlay.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+</script>
+
+</body>
+</html>
