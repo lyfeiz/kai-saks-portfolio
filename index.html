@@ -327,7 +327,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 }
 .card-body { padding: 20px; }
 .card-title { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-.card-desc { font-size: 0.82rem; color: rgba(10,17,114,0.75); line-height: 1.55; margin-bottom: 14px; }
+.card-desc { font-size: 0.82rem; color: rgba(10,17,114,0.92); line-height: 1.55; margin-bottom: 14px; }
 .card-link { color: var(--navy); font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 4px; transition: gap 0.2s; }
 .card-link:hover { gap: 8px; color: var(--sky); }
 .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 32px; }
@@ -559,9 +559,9 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .work-card-overlay-desc { font-size: 0.85rem; color: rgba(239,236,225,0.85); line-height: 1.55; margin-bottom: 12px; }
 .work-card-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--mango); font-weight: 700; font-size: 0.82rem; }
 .work-card-meta { padding: 20px; }
-.work-cat { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mango); margin-bottom: 8px; }
+.work-cat { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); margin-bottom: 8px; }
 .work-card-title { font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: var(--navy); margin-bottom: 6px; }
-.work-card-desc { font-size: 0.82rem; color: rgba(10,17,114,0.65); line-height: 1.5; }
+.work-card-desc { font-size: 0.82rem; color: rgba(10,17,114,0.9); line-height: 1.5; }
 .work-hidden { display: none !important; }
 
 /* ============================================================
@@ -574,7 +574,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; align-items: start;
 }
 .contact-left h1 { font-size: clamp(2rem,4vw,2.8rem); color: var(--navy); margin-bottom: 20px; }
-.contact-intro { font-size: 1rem; color: rgba(10,17,114,0.75); line-height: 1.75; margin-bottom: 40px; }
+.contact-intro { font-size: 1rem; color: rgba(10,17,114,0.92); line-height: 1.75; margin-bottom: 40px; }
 .contact-details { display: flex; flex-direction: column; gap: 16px; }
 .contact-detail { display: flex; align-items: center; gap: 14px; }
 .contact-detail-icon {
@@ -585,10 +585,10 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .contact-detail-text { font-size: 0.9rem; color: rgba(10,17,114,0.8); }
 .contact-detail-text a { color: rgba(10,17,114,0.8); transition: color 0.2s; }
 .contact-detail-text a:hover { color: var(--sky); }
-.contact-detail-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(10,17,114,0.45); margin-bottom: 2px; }
+.contact-detail-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(10,17,114,0.82); margin-bottom: 2px; }
 .contact-form { padding: 40px; background: rgba(10,17,114,0.06); border: 1px solid rgba(10,17,114,0.12); border-radius: var(--radius); }
 .form-group { margin-bottom: 24px; }
-.form-group label { display: block; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(10,17,114,0.7); margin-bottom: 8px; }
+.form-group label { display: block; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(10,17,114,0.9); margin-bottom: 8px; }
 .form-group input, .form-group select, .form-group textarea {
   width: 100%; padding: 14px 18px;
   background: rgba(255,255,255,0.6); border: 1px solid rgba(10,17,114,0.2);
@@ -870,21 +870,21 @@ footer {
       <div class="carousel-outer">
         <div class="carousel-track" id="home-carousel">
           <!-- AI Enablement -->
-          <div class="carousel-card">
-            <div class="card-thumb" style="background:linear-gradient(135deg,#0A1172,#1383F4);"><span class="card-category">AI Enablement</span></div>
+          <div class="carousel-card" onclick="window.location='ai-readiness-assessment.html'" style="cursor:pointer;">
+            <div class="card-thumb" style="background-image:url('images/AI Readiness Thumbnail.png');background-size:cover;background-position:center top;"><span class="card-category">AI Enablement</span></div>
             <div class="card-body">
-              <p class="card-title">AI Enablement Readiness Assessment Template</p>
-              <p class="card-desc">6-dimension scoring rubric for evaluating organizational AI adoption readiness.</p>
-              <span class="card-link" style="opacity:0.5;">Coming Soon</span>
+              <p class="card-title">AI Readiness Index</p>
+              <p class="card-desc">Interactive 6-dimension diagnostic for evaluating AI readiness in distributed service organizations.</p>
+              <a href="ai-readiness-assessment.html" class="card-link">View <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
             </div>
           </div>
           <!-- L&D Design -->
-          <div class="carousel-card">
-            <div class="card-thumb" style="background:linear-gradient(135deg,#0A1172,#1383F4);"><span class="card-category">L&amp;D Design</span></div>
+          <div class="carousel-card" onclick="window.location='learning-needs-analysis.html'" style="cursor:pointer;">
+            <div class="card-thumb" style="background-image:url('images/LNA Thumbnail Image.png');background-size:cover;background-position:center top;"><span class="card-category">L&amp;D Design</span></div>
             <div class="card-body">
-              <p class="card-title">Perspire L&amp;D Growth Potential</p>
-              <p class="card-desc">Full L&amp;D program analysis identifying growth opportunities and learning design recommendations.</p>
-              <span class="card-link" style="opacity:0.5;">Coming Soon</span>
+              <p class="card-title">Learning Needs Analysis</p>
+              <p class="card-desc">Pre-deployment LNA mapping training gaps by audience for a dual tech rollout across 87 locations.</p>
+              <a href="learning-needs-analysis.html" class="card-link">View <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
             </div>
           </div>
           <!-- Project & Program Management -->
@@ -1205,17 +1205,17 @@ footer {
 
     <div class="works-grid" id="works-grid">
 
-      <div class="work-card" data-filter="ai" data-url="#" data-status="coming-soon">
-        <div class="work-card-thumb" style="background:linear-gradient(135deg,#0A1172,#1383F4);">
+      <div class="work-card" data-filter="ai" data-url="ai-readiness-assessment.html" data-status="live">
+        <div class="work-card-thumb" style="background-image:url('images/AI Readiness Thumbnail.png');background-size:cover;background-position:center top;">
           <div class="work-card-overlay">
-            <p class="work-card-overlay-desc">Scoring rubric for evaluating org AI adoption readiness across six dimensions with stage-based next steps.</p>
-            <span class="work-card-btn">Coming Soon →</span>
+            <p class="work-card-overlay-desc">Score your organization across 6 dimensions — Signal Literacy, Workflow Proximity, Champion Density, and more — and get your readiness stage with concrete next steps.</p>
+            <span class="work-card-btn">Use the Tool →</span>
           </div>
         </div>
         <div class="work-card-meta">
           <p class="work-cat">AI Enablement</p>
-          <p class="work-card-title">AI Enablement Readiness Assessment</p>
-          <p class="work-card-desc">6-dimension scoring framework for evaluating organizational AI adoption readiness.</p>
+          <p class="work-card-title">AI Readiness Index</p>
+          <p class="work-card-desc">Interactive 6-dimension diagnostic for evaluating AI readiness in distributed service organizations.</p>
         </div>
       </div>
 
@@ -1356,6 +1356,20 @@ footer {
           <p class="work-cat">L&amp;D Design</p>
           <p class="work-card-title">Perspire L&amp;D Growth Potential</p>
           <p class="work-card-desc">L&amp;D program analysis with growth opportunity mapping and learning design recommendations.</p>
+        </div>
+      </div>
+
+      <div class="work-card" data-filter="ld" data-url="learning-needs-analysis.html" data-status="live">
+        <div class="work-card-thumb" style="background-image:url('images/LNA Thumbnail Image.png');background-size:cover;background-position:center top;">
+          <div class="work-card-overlay">
+            <p class="work-card-overlay-desc">Pre-deployment LNA for a fast-casual chain's dual tech rollout — maps training gaps by audience, surfaces deployment risk, and defines a constraint-aware training architecture.</p>
+            <span class="work-card-btn">View Deliverable →</span>
+          </div>
+        </div>
+        <div class="work-card-meta">
+          <p class="work-cat">L&amp;D Design</p>
+          <p class="work-card-title">Learning Needs Analysis — Fieldstone Kitchen Co.</p>
+          <p class="work-card-desc">Constraint-aware LNA for a POS migration + AI scheduling rollout across 87 fast-casual locations.</p>
         </div>
       </div>
 

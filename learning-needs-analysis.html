@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Needs Analysis — Kai Saks</title>
+  <meta name="description" content="A Learning Needs Analysis for a fast-casual chain's dual technology deployment: POS migration and AI-assisted labor scheduling.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300&family=Open+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:        #0A1172;
+      --sky:         #1383F4;
+      --mango:       #F6A205;
+      --neutral:     #EFECE1;
+      --slate:       #8A97A8;
+      --glass:       rgba(239,236,225,0.07);
+      --glass-border:rgba(239,236,225,0.14);
+      --grad-brand:  linear-gradient(135deg,#0A1172 0%,#1383F4 55%,#F6A205 100%);
+      --font-head:   'Titillium Web', sans-serif;
+      --font-body:   'Open Sans', sans-serif;
+      --radius:      16px;
+      --nav-h:       68px;
+      /* Fieldstone brand accent — rich Irish green */
+      --fieldstone:  #0D7A4E;
+      --fieldstone-lt: #1AAD6E;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--navy);color:var(--neutral);min-height:100vh;-webkit-font-smoothing:antialiased;}
+    a{color:inherit;text-decoration:none;}
+
+    /* ── NAV ── */
+    .main-nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,60px);background:rgba(10,17,114,0.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--glass-border);z-index:100;transition:background 0.3s;}
+    .main-nav.scrolled{background:rgba(10,17,114,0.95);}
+    .nav-logo{font-family:var(--font-head);font-weight:900;font-size:1.1rem;letter-spacing:0.06em;color:var(--neutral);}
+    .nav-logo span{color:var(--mango);}
+    .nav-links{display:flex;gap:36px;list-style:none;}
+    .nav-links a{font-family:var(--font-head);font-size:0.85rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(239,236,225,0.75);transition:color 0.2s;}
+    .nav-links a:hover{color:var(--neutral);}
+    .nav-cta{font-family:var(--font-head);font-size:0.8rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);background:var(--mango);padding:9px 20px;border-radius:8px;transition:opacity 0.2s;}
+    .nav-cta:hover{opacity:0.88;}
+    .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--neutral);border-radius:2px;}
+    .nav-overlay{display:none;position:fixed;inset:0;background:rgba(10,17,114,0.97);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+    .nav-overlay.open{display:flex;}
+    .nav-overlay a{font-family:var(--font-head);font-size:1.4rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--neutral);}
+    .overlay-close{position:absolute;top:20px;right:24px;font-size:1.8rem;background:none;border:none;color:var(--neutral);cursor:pointer;}
+    @media(max-width:768px){.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}}
+
+    /* ── HERO ── */
+    .hero{padding-top:calc(var(--nav-h) + 56px);padding-bottom:48px;padding-left:clamp(20px,6vw,80px);padding-right:clamp(20px,6vw,80px);max-width:1100px;margin:0 auto;}
+    .back-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--slate);margin-bottom:32px;transition:color 0.2s;}
+    .back-link:hover{color:var(--neutral);}
+    .meta-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+    .tag-cat{font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--navy);background:var(--mango);padding:4px 12px;border-radius:20px;}
+    .tag-type{font-family:var(--font-head);font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate);border:1px solid var(--glass-border);padding:4px 12px;border-radius:20px;}
+    .tag-industry{font-family:var(--font-head);font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(194,98,43,0.9);border:1px solid rgba(194,98,43,0.35);background:rgba(194,98,43,0.1);padding:4px 12px;border-radius:20px;}
+    .artifact-title{font-family:var(--font-head);font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;line-height:1.1;color:var(--neutral);margin-bottom:20px;}
+    .artifact-title em{font-style:italic;display:inline-block;padding-right:0.06em;background:linear-gradient(135deg,#FFFFFF 0%,#F6A205 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .artifact-desc{font-size:1.05rem;line-height:1.78;color:rgba(239,236,225,0.82);margin-bottom:28px;}
+    .skills-row{display:flex;flex-wrap:wrap;gap:8px;}
+    .skill-pill{font-family:var(--font-head);font-size:0.75rem;font-weight:600;letter-spacing:0.05em;color:var(--sky);border:1px solid rgba(19,131,244,0.35);background:rgba(19,131,244,0.08);padding:5px 14px;border-radius:20px;}
+
+    /* ── DIVIDER ── */
+    .divider{max-width:1100px;margin:40px auto;padding:0 clamp(20px,6vw,80px);}
+    .divider hr{border:none;border-top:1px solid var(--glass-border);}
+
+    /* ── METHOD STRIP ── */
+    .method-strip{background:var(--glass);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);padding:32px 0;margin-bottom:48px;}
+    .method-inner{max-width:1100px;margin:0 auto;padding:0 clamp(20px,6vw,80px);display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+    @media(max-width:700px){.method-inner{grid-template-columns:1fr 1fr;}}
+    @media(max-width:400px){.method-inner{grid-template-columns:1fr;}}
+    .method-item{}
+    .method-num{font-family:var(--font-head);font-size:1.8rem;font-weight:900;color:var(--sky);line-height:1;}
+    .method-label{font-family:var(--font-head);font-size:0.78rem;font-weight:700;color:var(--neutral);margin-top:4px;margin-bottom:2px;}
+    .method-sub{font-size:0.75rem;color:var(--slate);}
+
+    /* ── DOCUMENT CONTAINER ── */
+    .doc-section{max-width:1100px;margin:0 auto;padding:0 clamp(20px,6vw,80px) 72px;}
+    .doc-label{font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate);margin-bottom:16px;}
+
+    /* ── THE ONE-PAGER DOCUMENT ── */
+    .one-pager{background:#fff;border-radius:var(--radius);box-shadow:0 32px 80px rgba(0,0,0,0.45);overflow:hidden;font-family:var(--font-body);color:#1a1a2e;}
+    .doc-header{background:var(--fieldstone);padding:28px 36px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;}
+    .doc-header-left{}
+    .doc-client-badge{display:inline-block;font-family:var(--font-head);font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:6px;}
+    .doc-company{font-family:var(--font-head);font-size:1.6rem;font-weight:900;color:#fff;line-height:1.1;margin-bottom:2px;}
+    .doc-company-tag{font-family:var(--font-head);font-size:0.78rem;font-weight:400;color:rgba(255,255,255,0.7);letter-spacing:0.04em;}
+    .doc-title-block{text-align:right;}
+    @media(max-width:560px){.doc-title-block{text-align:left;}}
+    .doc-title{font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:4px;}
+    .doc-meta-item{font-size:0.75rem;color:rgba(255,255,255,0.65);}
+
+    .doc-context{background:#F8F6F1;border-bottom:1px solid #E0DDD6;padding:18px 36px;font-size:0.82rem;line-height:1.65;color:#444;}
+    .doc-context strong{color:#1a1a2e;}
+
+    .doc-body{padding:28px 36px 36px;}
+
+    /* 2-column layout */
+    .doc-cols{display:grid;grid-template-columns:1fr 1.4fr;gap:28px;margin-bottom:28px;}
+    @media(max-width:640px){.doc-cols{grid-template-columns:1fr;}}
+
+    /* Section header */
+    .doc-section-head{font-family:var(--font-head);font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--fieldstone);border-bottom:2px solid var(--fieldstone);padding-bottom:4px;margin-bottom:12px;}
+
+    /* Audience table */
+    .aud-table{width:100%;border-collapse:collapse;font-size:0.78rem;}
+    .aud-table th{font-family:var(--font-head);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;padding:6px 8px;text-align:left;border-bottom:1px solid #E0DDD6;}
+    .aud-table td{padding:7px 8px;border-bottom:1px solid #F0EDE8;color:#333;vertical-align:top;line-height:1.45;}
+    .aud-table tr:last-child td{border-bottom:none;}
+    .aud-seg{font-family:var(--font-head);font-size:0.78rem;font-weight:700;color:#1a1a2e;}
+
+    /* Methodology */
+    .method-list{list-style:none;font-size:0.8rem;color:#444;display:flex;flex-direction:column;gap:7px;}
+    .method-list li{display:flex;gap:8px;align-items:flex-start;line-height:1.5;}
+    .method-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--fieldstone);flex-shrink:0;margin-top:5px;}
+
+    /* Priority matrix */
+    .priority-table{width:100%;border-collapse:collapse;font-size:0.75rem;}
+    .priority-table th{font-family:var(--font-head);font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;padding:6px 8px;text-align:left;border-bottom:2px solid #E0DDD6;white-space:nowrap;}
+    .priority-table td{padding:8px 8px;border-bottom:1px solid #F0EDE8;vertical-align:top;line-height:1.45;color:#333;}
+    .priority-table tr:last-child td{border-bottom:none;}
+    .priority-table tr:hover td{background:#FAFAF8;}
+    .need-title{font-weight:600;color:#1a1a2e;font-size:0.78rem;}
+    .need-aud{font-size:0.7rem;color:#888;margin-top:1px;}
+    .badge{display:inline-block;font-family:var(--font-head);font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border-radius:10px;}
+    .badge-h{background:#FEECED;color:#C0392B;}
+    .badge-m{background:#FEF3CD;color:#92600A;}
+    .badge-l{background:#E8F6EE;color:#1A7A45;}
+    .badge-risk-h{background:#FEECED;color:#C0392B;}
+    .badge-risk-m{background:#FEF3CD;color:#92600A;}
+    .badge-risk-l{background:#E8F6EE;color:#1A7A45;}
+
+    /* Architecture table */
+    .arch-table{width:100%;border-collapse:collapse;font-size:0.75rem;margin-bottom:24px;}
+    .arch-table th{font-family:var(--font-head);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;padding:6px 8px;text-align:left;border-bottom:2px solid #E0DDD6;white-space:nowrap;}
+    .arch-table td{padding:8px 8px;border-bottom:1px solid #F0EDE8;vertical-align:top;line-height:1.5;color:#333;font-size:0.76rem;}
+    .arch-table tr:last-child td{border-bottom:none;}
+    .arch-table tr:hover td{background:#FAFAF8;}
+    .arch-aud{font-family:var(--font-head);font-weight:700;font-size:0.76rem;color:#1a1a2e;}
+    .arch-constraint{font-size:0.7rem;color:#888;font-style:italic;}
+
+    /* Metrics + next step row */
+    .doc-bottom{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-top:8px;}
+    @media(max-width:560px){.doc-bottom{grid-template-columns:1fr;}}
+    .metrics-list{list-style:none;font-size:0.78rem;color:#444;display:flex;flex-direction:column;gap:6px;}
+    .metric-item{display:flex;gap:8px;align-items:flex-start;}
+    .metric-type{font-family:var(--font-head);font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--fieldstone);white-space:nowrap;padding-top:1px;}
+    .metric-text{line-height:1.5;}
+    .next-step-box{background:#F8F6F1;border-left:3px solid var(--fieldstone);border-radius:0 8px 8px 0;padding:14px 16px;}
+    .next-step-label{font-family:var(--font-head);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--fieldstone);margin-bottom:6px;}
+    .next-step-text{font-size:0.78rem;line-height:1.6;color:#333;}
+
+    .doc-footer{background:#1a1a2e;padding:14px 36px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+    .doc-footer-left{font-family:var(--font-head);font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+    .doc-footer-right{font-size:0.65rem;color:rgba(255,255,255,0.35);}
+
+    /* ── EXPAND BUTTON ── */
+    .expand-btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate);background:var(--glass);border:1px solid var(--glass-border);padding:7px 14px;border-radius:8px;cursor:pointer;transition:all 0.2s;margin-bottom:10px;}
+    .expand-btn:hover{color:var(--neutral);border-color:rgba(239,236,225,0.3);}
+    /* Expanded overlay */
+    .one-pager-wrap.expanded-mode .one-pager{position:fixed;inset:16px;z-index:200;overflow-y:auto;border-radius:12px;box-shadow:0 40px 100px rgba(0,0,0,0.85);max-height:none;}
+    .one-pager-wrap.expanded-mode::before{content:'';position:fixed;inset:0;background:rgba(5,8,40,0.88);z-index:199;backdrop-filter:blur(6px);}
+
+    /* ── CONTEXT CARDS ── */
+    .context-section{max-width:1100px;margin:0 auto;padding:0 clamp(20px,6vw,80px) 72px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+    @media(max-width:640px){.context-section{grid-template-columns:1fr;}}
+    .ctx-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:28px 32px;}
+    .ctx-card h3{font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mango);margin-bottom:14px;}
+    .ctx-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    .ctx-card ul li{font-size:0.88rem;line-height:1.65;color:rgba(239,236,225,0.72);display:flex;gap:8px;align-items:flex-start;}
+    .ctx-card ul li::before{content:'→';color:var(--sky);font-weight:700;flex-shrink:0;}
+
+    /* ── CTA ── */
+    .cta-strip{background:var(--grad-brand);padding:56px clamp(20px,6vw,80px);text-align:center;}
+    .cta-strip h2{font-family:var(--font-head);font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:#fff;margin-bottom:20px;}
+    .btn-cta{display:inline-block;font-family:var(--font-head);font-size:0.85rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);background:#fff;padding:14px 32px;border-radius:10px;transition:opacity 0.2s;}
+    .btn-cta:hover{opacity:0.88;}
+
+    /* ── FOOTER ── */
+    footer{background:rgba(0,0,0,0.3);border-top:1px solid var(--glass-border);padding:28px clamp(20px,6vw,80px);}
+    .footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+    .footer-brand{font-family:var(--font-head);font-weight:900;font-size:1rem;color:var(--neutral);letter-spacing:0.06em;}
+    .footer-brand p{font-family:var(--font-body);font-weight:400;font-size:0.78rem;color:var(--slate);letter-spacing:0;margin-top:2px;}
+    .footer-nav{display:flex;gap:24px;}
+    .footer-nav a{font-family:var(--font-head);font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--slate);transition:color 0.2s;}
+    .footer-nav a:hover{color:var(--neutral);}
+  </style>
+</head>
+<body>
+
+<nav class="main-nav" id="main-nav">
+  <a href="index.html" class="nav-logo">KAI <span>SAKS</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#works">Works</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Work With Me</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="nav-overlay" id="nav-overlay">
+  <button class="overlay-close" id="overlay-close" aria-label="Close menu">&times;</button>
+  <a href="index.html#home">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#works">Works</a>
+  <a href="index.html#contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <a href="index.html#works" class="back-link">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Works
+  </a>
+  <div class="meta-row">
+    <span class="tag-cat">L&amp;D Design</span>
+    <span class="tag-type">Client Deliverable · One-Pager</span>
+  </div>
+  <h1 class="artifact-title"><em>Learning Needs Analysis</em></h1>
+  <p class="artifact-desc">A structured pre-deployment LNA commissioned for a multi-unit fast-casual operator ahead of a dual technology change: a full POS migration and the rollout of an AI-assisted labor scheduling tool. This deliverable maps training gaps by audience, surfaces deployment risk, and defines a constraint-aware training architecture — before a single lesson is designed.</p>
+  <div class="skills-row">
+    <span class="skill-pill">Learning Needs Analysis</span>
+    <span class="skill-pill">Audience Segmentation</span>
+    <span class="skill-pill">Instructional Design Strategy</span>
+    <span class="skill-pill">Training Architecture</span>
+    <span class="skill-pill">Change Management</span>
+    <span class="skill-pill">Stakeholder Communication</span>
+  </div>
+</section>
+
+<!-- ANONYMITY NOTE -->
+<div style="max-width:1100px;margin:0 auto 0;padding:0 clamp(20px,6vw,80px) 28px;">
+  <p style="font-size:0.78rem;line-height:1.6;color:rgba(239,236,225,0.45);border-left:2px solid rgba(239,236,225,0.18);padding-left:12px;">
+    <em>Note: The company name, specific locations, and certain operational details in this deliverable have been changed to protect client confidentiality. The analysis methodology, findings, and training architecture reflect the actual engagement.</em>
+  </p>
+</div>
+
+<!-- METHODOLOGY STRIP -->
+<div class="method-strip">
+  <div class="method-inner">
+    <div class="method-item">
+      <div class="method-num">14</div>
+      <div class="method-label">SME Interviews</div>
+      <div class="method-sub">GMs, shift leads, corp ops, IT</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">68%</div>
+      <div class="method-label">Survey Response Rate</div>
+      <div class="method-sub">59 questions · 87 location managers</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">3</div>
+      <div class="method-label">Shadow Sessions</div>
+      <div class="method-sub">Portland OR · Denver CO · Boise ID</div>
+    </div>
+    <div class="method-item">
+      <div class="method-num">23</div>
+      <div class="method-label">Training Assets Audited</div>
+      <div class="method-sub">Modules reviewed + completion data</div>
+    </div>
+  </div>
+</div>
+
+<!-- DOCUMENT -->
+<div class="doc-section">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+    <p class="doc-label" style="margin-bottom:0;">Deliverable</p>
+    <button class="expand-btn" id="expand-btn" onclick="toggleExpand()" aria-label="Expand document">
+      <svg id="expand-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      Expand
+    </button>
+  </div>
+
+  <div class="one-pager-wrap" id="one-pager-wrap">
+  <div class="one-pager" id="lna-document" role="document" aria-label="Learning Needs Analysis — Fieldstone Kitchen Co.">
+
+    <!-- DOCUMENT HEADER -->
+    <div class="doc-header">
+      <div class="doc-header-left">
+        <div class="doc-client-badge">Client Deliverable</div>
+        <div class="doc-company">Fieldstone Kitchen Co.</div>
+        <div class="doc-company-tag">West Coast Kitchen Crafted · 87 Locations · PNW &amp; Mountain West</div>
+      </div>
+      <div class="doc-title-block">
+        <div class="doc-title">Learning Needs Analysis<br>Technology Deployment Readiness</div>
+        <div class="doc-meta-item">Prepared: Q4 2022</div>
+        <div class="doc-meta-item">Deployment Target: Q2 2023</div>
+        <div class="doc-meta-item">Prepared by: Kai Saks, L&amp;D Strategist</div>
+      </div>
+    </div>
+
+    <!-- ENGAGEMENT CONTEXT -->
+    <div class="doc-context">
+      <strong>Engagement context:</strong> Fieldstone Kitchen is simultaneously deploying two interconnected technology changes across all 87 locations by Q3 2026: a full POS + digital ordering platform migration (Toast/Olo) replacing a 6-year-old legacy system, and an AI-assisted labor scheduling tool (TrueShift Scheduler) replacing manual GM scheduling. This LNA was commissioned to map learning needs by role, identify deployment risk before it becomes training failure, and define a constraint-aware training architecture prior to vendor curriculum delivery. <strong>Findings represent 4 audience segments across ~2,200 employees.</strong>
+    </div>
+
+    <div class="doc-body">
+
+      <!-- TOP COLS: Audience + Methodology -->
+      <div class="doc-cols">
+        <div>
+          <p class="doc-section-head">Audience Segments</p>
+          <table class="aud-table" aria-label="Audience segments">
+            <thead>
+              <tr><th>Audience</th><th>Est. Size</th><th>Primary Constraint</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="aud-seg">Crew</span><br><span style="font-size:0.7rem;color:#888;">Baristas / Line</span></td>
+                <td>~1,800</td>
+                <td>No device access. 5–10 min learning windows during shift transitions only.</td>
+              </tr>
+              <tr>
+                <td><span class="aud-seg">Shift Leads</span></td>
+                <td>~310</td>
+                <td>Avoids formal learning. Absorbs through peer modeling and hands-on practice.</td>
+              </tr>
+              <tr>
+                <td><span class="aud-seg">General Managers</span></td>
+                <td>87</td>
+                <td>2–3 hrs/week available for structured learning; need depth on both tools.</td>
+              </tr>
+              <tr>
+                <td><span class="aud-seg">Ops &amp; Corporate</span></td>
+                <td>~24</td>
+                <td>Async-capable. Require full system access, admin functions, and analytics.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <p class="doc-section-head">Priority Learning Needs — By Deployment Risk</p>
+          <table class="priority-table" aria-label="Priority learning needs">
+            <thead>
+              <tr><th>Learning Need</th><th>Audience</th><th>Urgency</th><th>Impact</th><th>Deploy Risk</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="need-title">POS navigation &amp; transaction flows</span><div class="need-aud">Core operating skill for go-live</div></td>
+                <td>Crew, Leads</td>
+                <td><span class="badge badge-h">H</span></td>
+                <td><span class="badge badge-h">H</span></td>
+                <td><span class="badge badge-risk-h">Critical</span></td>
+              </tr>
+              <tr>
+                <td><span class="need-title">End-of-day reconciliation in Toast</span><div class="need-aud">New close procedures; no analog to legacy</div></td>
+                <td>GMs, Leads</td>
+                <td><span class="badge badge-h">H</span></td>
+                <td><span class="badge badge-h">H</span></td>
+                <td><span class="badge badge-risk-h">Critical</span></td>
+              </tr>
+              <tr>
+                <td><span class="need-title">TrueShift: input, override &amp; escalation</span><div class="need-aud">AI tool — misuse creates compliance exposure</div></td>
+                <td>GMs, Corp</td>
+                <td><span class="badge badge-h">H</span></td>
+                <td><span class="badge badge-m">M</span></td>
+                <td><span class="badge badge-risk-m">Elevated</span></td>
+              </tr>
+              <tr>
+                <td><span class="need-title">Digital order queue management</span><div class="need-aud">Guest experience degradation if untrained</div></td>
+                <td>Crew, Leads</td>
+                <td><span class="badge badge-m">M</span></td>
+                <td><span class="badge badge-h">H</span></td>
+                <td><span class="badge badge-risk-m">Elevated</span></td>
+              </tr>
+              <tr>
+                <td><span class="need-title">Labor analytics &amp; reporting</span><div class="need-aud">Operational efficiency — not on critical path</div></td>
+                <td>GMs, Corp</td>
+                <td><span class="badge badge-m">M</span></td>
+                <td><span class="badge badge-m">M</span></td>
+                <td><span class="badge badge-risk-l">Managed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TRAINING ARCHITECTURE -->
+      <p class="doc-section-head">Recommended Training Architecture — Constraint-Aware</p>
+      <table class="arch-table" aria-label="Recommended training architecture">
+        <thead>
+          <tr><th>Audience</th><th>Format</th><th>Duration</th><th>Delivery Method</th><th>Rationale &amp; Constraint</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="arch-aud">Crew</span><div class="arch-constraint">No device / shift-based windows</div></td>
+            <td>Scenario-based POS simulation + laminated job aid (2 versions: POS &amp; order queue)</td>
+            <td>45 min practice + reference card</td>
+            <td>Trainer-led, shift-embedded. Staggered across 3 days pre-go-live.</td>
+            <td>Crew can't complete async e-learning; 5-min shift windows are real. Physical job aids must survive a kitchen environment.</td>
+          </tr>
+          <tr>
+            <td><span class="arch-aud">Shift Leads</span><div class="arch-constraint">Learns by doing; resists classrooms</div></td>
+            <td>Hands-on practice sessions + peer coaching guide (for supporting crew day 1)</td>
+            <td>90 min (2 × 45 min) + coaching card</td>
+            <td>Side-by-side with GM. Not scheduled as "training." Framed as system walkthrough.</td>
+            <td>Shift leads disengage from formal instruction. Framing matters: this is a walkthrough, not a class. Peer coaching guide gives them authority on launch day.</td>
+          </tr>
+          <tr>
+            <td><span class="arch-aud">General Managers</span><div class="arch-constraint">2–3 hrs/week max; needs depth</div></td>
+            <td>Blended: 2 × 60-min facilitated cohort sessions (Toast/Olo) + 2 × 30-min async micro-modules (TrueShift)</td>
+            <td>~3 hrs structured + 1 hr async</td>
+            <td>Virtual cohort (GMs grouped by region) + self-paced micro-modules for TrueShift scheduling logic.</td>
+            <td>GMs need depth on both tools but have limited availability. Cohort format builds peer knowledge-sharing between properties. TrueShift async prevents schedule conflicts.</td>
+          </tr>
+          <tr>
+            <td><span class="arch-aud">Ops &amp; Corporate</span><div class="arch-constraint">Async-capable; needs admin access</div></td>
+            <td>Deep-dive system training + admin guide (full reference document) + reporting walkthrough</td>
+            <td>4 hrs structured + ongoing reference</td>
+            <td>Virtual instructor-led (small group, 6–8 people). Sandbox environment access during training.</td>
+            <td>Corp team needs full system admin access, reporting functions, and override authority. Live sandbox environment is non-negotiable — this group learns in the system, not about it.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- BOTTOM: Metrics + Next Step -->
+      <div class="doc-bottom">
+        <div>
+          <p class="doc-section-head">Success Metrics</p>
+          <ul class="metrics-list">
+            <li class="metric-item"><span class="metric-type">Leading</span><span class="metric-text">POS simulation pass rate ≥ 80% before go-live (Crew &amp; Leads)</span></li>
+            <li class="metric-item"><span class="metric-type">Leading</span><span class="metric-text">Day-1 transaction error rate &lt; 3% vs. baseline</span></li>
+            <li class="metric-item"><span class="metric-type">Lagging</span><span class="metric-text">EOD reconciliation error rate: −40% vs. legacy at 90 days</span></li>
+            <li class="metric-item"><span class="metric-type">Lagging</span><span class="metric-text">TrueShift scheduling complaint rate from crew: −25% at 60 days</span></li>
+            <li class="metric-item"><span class="metric-type">Qual</span><span class="metric-text">GM confidence survey: ≥ 75% "confident" in both tools at Day 30</span></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="doc-section-head">Recommended Next Step</p>
+          <div class="next-step-box">
+            <div class="next-step-label">Action &amp; Timeline</div>
+            <p class="next-step-text">Recommend an 8-week training design sprint beginning <strong>Q1 2023</strong>, prioritizing the crew POS simulation and GM blended curriculum as the critical path. TrueShift modules follow in weeks 5–6. Full architecture and storyboards delivered in the <em>LNA Companion Report</em>. Vendor curriculum review and pilot at 2 locations recommended in weeks 7–8 before chain-wide rollout.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /doc-body -->
+
+    <!-- DOCUMENT FOOTER -->
+    <div class="doc-footer">
+      <span class="doc-footer-left">Fieldstone Kitchen Co. — Learning Needs Analysis · Confidential</span>
+      <span class="doc-footer-right">Prepared by Kai Saks · Q4 2022 · Page 1 of 1</span>
+    </div>
+
+  </div><!-- /one-pager -->
+  </div><!-- /one-pager-wrap -->
+</div>
+
+<!-- CONTEXT CARDS -->
+<div class="context-section">
+  <div class="ctx-card">
+    <h3>What This Demonstrates</h3>
+    <ul>
+      <li>Pre-design LNA conducted before a single lesson is built — the right sequence</li>
+      <li>Audience segmentation based on real operational constraints, not job titles</li>
+      <li>Deployment risk framing that makes training gaps legible to operations stakeholders</li>
+      <li>Constraint-aware modality recommendations (what works at a kitchen counter at 8am)</li>
+      <li>Leading vs. lagging success metrics that go beyond completion rates</li>
+    </ul>
+  </div>
+  <div class="ctx-card">
+    <h3>L&amp;D Principles Applied</h3>
+    <ul>
+      <li>Needs analysis before design — no content without confirmed gaps</li>
+      <li>Audience-first architecture: delivery method follows the learner's reality</li>
+      <li>Risk-weighted prioritization: critical path training is scoped first</li>
+      <li>Mixed methods research: surveys + interviews + on-site observation</li>
+      <li>Measurement designed before training built — not retrofitted after</li>
+    </ul>
+  </div>
+</div>
+
+<!-- BACK TO WORKS (bottom) -->
+<div style="text-align:center;padding:36px 20px 0;">
+  <a href="index.html#works" class="back-link" style="display:inline-flex;">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Works
+  </a>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <h2>Need a training architecture built before your next deployment?</h2>
+  <a href="index.html#contact" class="btn-cta">Work With Me →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">KAI SAKS<p>The Efficiency Alchemist</p><p style="font-size:0.75rem;color:var(--slate);margin-top:4px;">© 2026 Kai Saks. All rights reserved.</p></div>
+    <nav class="footer-nav">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#works">Works</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+/* ─── EXPAND DOCUMENT ─── */
+function toggleExpand() {
+  const wrap = document.getElementById('one-pager-wrap');
+  const btn  = document.getElementById('expand-btn');
+  const icon = document.getElementById('expand-icon');
+  const expanded = wrap.classList.toggle('expanded-mode');
+  document.body.style.overflow = expanded ? 'hidden' : '';
+  btn.innerHTML = expanded
+    ? `<svg id="expand-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 3v5H3M21 8h-5V3M3 16h5v5M16 21v-5h5"/></svg> Collapse`
+    : `<svg id="expand-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> Expand`;
+  // Close on backdrop click
+  if (expanded) {
+    wrap.addEventListener('click', function closeOnBackdrop(e) {
+      if (e.target === wrap) { toggleExpand(); wrap.removeEventListener('click', closeOnBackdrop); }
+    });
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('one-pager-wrap').classList.contains('expanded-mode')) toggleExpand();
+});
+
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+const hamburger = document.getElementById('hamburger');
+const overlay = document.getElementById('nav-overlay');
+const closeBtn = document.getElementById('overlay-close');
+hamburger.addEventListener('click', () => {
+  const open = overlay.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+closeBtn.addEventListener('click', () => { overlay.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; });
+overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { overlay.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }));
+</script>
+
+</body>
+</html>
