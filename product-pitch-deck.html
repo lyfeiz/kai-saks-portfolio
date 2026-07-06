@@ -167,7 +167,6 @@
       font-size: 1.05rem;
       line-height: 1.75;
       color: rgba(239,236,225,0.75);
-      max-width: 680px;
       margin-bottom: 36px;
     }
 
@@ -410,6 +409,71 @@
       .hamburger { display: flex; }
     }
 
+    /* ── PDF EXPAND BUTTON ─────────────────────────────────────── */
+    .pdf-expand-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(10,17,114,0.82);
+      border: 1px solid rgba(239,236,225,0.22);
+      color: var(--neutral);
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-head);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .pdf-expand-btn:hover { background: rgba(10,17,114,0.98); }
+
+    /* ── PDF LIGHTBOX ──────────────────────────────────────────── */
+    .pdf-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+      background: rgba(0,0,0,0.88);
+      align-items: center;
+      justify-content: center;
+    }
+    .pdf-lightbox.open { display: flex; }
+    .pdf-lightbox-inner {
+      position: relative;
+      width: min(94vw, 1280px);
+      height: 94vh;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+    .pdf-lightbox-inner iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+    }
+    .pdf-lightbox-close {
+      position: absolute;
+      top: -50px; right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2.4rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px 8px;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .pdf-lightbox-close:hover { opacity: 1; }
+
     /* ── DIVIDER ───────────────────────────────────────────────── */
     .section-divider {
       max-width: 1100px;
@@ -455,11 +519,11 @@
   </a>
 
   <div class="artifact-meta-row">
-    <span class="artifact-category-tag">Product</span>
+    <span class="artifact-category-tag">Product Design &amp; Management</span>
     <span class="artifact-type-tag">Pitch Deck · 25 Slides</span>
   </div>
 
-  <h1 class="artifact-title">FlexCore EMS:<br><em>Product Pitch Deck</em></h1>
+  <h1 class="artifact-title"><em>Product Pitch Deck</em></h1>
 
   <p class="artifact-desc">
     A full investor pitch deck built for a wearable EMS fitness technology entering the North American market. Covers the market opportunity, science validation, unit economics, deployment strategy, and growth roadmap — structured to move a room from curiosity to conviction.
@@ -483,7 +547,12 @@
   <p class="pdf-label">Artifact Preview</p>
   <div class="pdf-frame-wrap">
     <div class="pdf-interaction-block" aria-hidden="true"></div>
+    <button class="pdf-expand-btn" id="pdf-expand-btn" aria-label="Expand PDF to full screen">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      Expand
+    </button>
     <iframe
+      id="pdf-inline"
       src="artifacts/sample-product-pitch-deck.pdf#toolbar=0&navpanes=0&view=FitH"
       title="FlexCore EMS Product Pitch Deck"
       loading="lazy"
@@ -526,6 +595,14 @@
 </section>
 
 
+<!-- ── BACK TO WORKS ───────────────────────────────────────────────── -->
+<div style="max-width:1100px;margin:0 auto 48px;padding:0 clamp(20px,6vw,80px);">
+  <a href="index.html#works" class="back-link">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Works
+  </a>
+</div>
+
 <!-- ── CTA STRIP ──────────────────────────────────────────────────── -->
 <section class="cta-strip">
   <h2>Interested in what I can build for you?</h2>
@@ -549,6 +626,15 @@
     </nav>
   </div>
 </footer>
+
+
+<!-- ── PDF LIGHTBOX ──────────────────────────────────────────────────── -->
+<div id="pdf-lightbox" class="pdf-lightbox" role="dialog" aria-modal="true" aria-label="PDF enlarged view">
+  <div class="pdf-lightbox-inner">
+    <button id="pdf-lb-close" class="pdf-lightbox-close" aria-label="Close enlarged view">&times;</button>
+    <iframe id="pdf-lb-frame" src="" title="PDF enlarged view" allow="fullscreen"></iframe>
+  </div>
+</div>
 
 
 <script>
@@ -576,6 +662,36 @@ function closeMenu() {
   hamburger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 }
+
+/* ─── PDF EXPAND LIGHTBOX ─────────────────────────────────── */
+const pdfLightbox  = document.getElementById('pdf-lightbox');
+const pdfLbFrame   = document.getElementById('pdf-lb-frame');
+const pdfLbClose   = document.getElementById('pdf-lb-close');
+const pdfExpandBtn = document.getElementById('pdf-expand-btn');
+const pdfInline    = document.getElementById('pdf-inline');
+
+function openPdfLightbox() {
+  pdfLbFrame.src = pdfInline.src;
+  pdfLightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  pdfLbClose.focus();
+}
+
+function closePdfLightbox() {
+  pdfLightbox.classList.remove('open');
+  pdfLbFrame.src = '';
+  document.body.style.overflow = '';
+  pdfExpandBtn.focus();
+}
+
+pdfExpandBtn.addEventListener('click', openPdfLightbox);
+pdfLbClose.addEventListener('click', closePdfLightbox);
+pdfLightbox.addEventListener('click', function(e) {
+  if (e.target === this) closePdfLightbox();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && pdfLightbox.classList.contains('open')) closePdfLightbox();
+});
 </script>
 
 </body>
