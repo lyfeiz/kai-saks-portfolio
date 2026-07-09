@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LMS Migration Charter & Scope | Kai Saks</title>
+  <meta name="description" content="A representative LMS migration project charter and scope document covering objectives, in and out of scope, phase plan, RACI, and risk mitigations for moving ~6,000 learners from a proprietary system to SaaS.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300&family=Open+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+  <style>
+    /* ── DESIGN TOKENS ─────────────────────────────────────────── */
+    :root {
+      --navy:         #0A1172;
+      --sky:          #1383F4;
+      --mango:        #F6A205;
+      --neutral:      #EFECE1;
+      --slate:        #8A97A8;
+      --glass:        rgba(239,236,225,0.09);
+      --glass-border: rgba(239,236,225,0.14);
+      --grad-brand:   linear-gradient(135deg, #0A1172 0%, #1383F4 55%, #F6A205 100%);
+      --font-head:    'Titillium Web', sans-serif;
+      --font-body:    'Open Sans', sans-serif;
+      --radius:       16px;
+      --nav-h:        68px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--neutral);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── NAV ───────────────────────────────────────────────────── */
+    .main-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 5vw, 60px);
+      background: rgba(10,17,114,0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 100;
+      transition: background 0.3s;
+    }
+    .main-nav.scrolled { background: rgba(10,17,114,0.95); }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      color: var(--neutral);
+      cursor: pointer;
+    }
+    .nav-logo span { color: var(--mango); }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(239,236,225,0.75);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--neutral); }
+    .nav-cta {
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--mango);
+      padding: 9px 20px;
+      border-radius: 8px;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── HERO ──────────────────────────────────────────────────── */
+    .artifact-hero {
+      padding-top: calc(var(--nav-h) + 60px);
+      padding-bottom: 48px;
+      padding-left: clamp(20px, 6vw, 80px);
+      padding-right: clamp(20px, 6vw, 80px);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 32px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--neutral); }
+    .back-link svg { flex-shrink: 0; }
+
+    .artifact-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .artifact-category-tag {
+      font-family: var(--font-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--mango);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .artifact-type-tag {
+      font-family: var(--font-head);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--slate);
+      border: 1px solid var(--glass-border);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .artifact-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.12;
+      color: var(--neutral);
+      margin-bottom: 20px;
+    }
+    .artifact-title em {
+      font-style: italic;
+      display: inline-block;
+      padding-right: 0.06em;
+      background: linear-gradient(135deg, #FFFFFF 0%, #F6A205 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .artifact-desc {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(239,236,225,0.75);
+      margin-bottom: 36px;
+    }
+
+    /* ── SKILLS PILLS ──────────────────────────────────────────── */
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 48px;
+    }
+    .skill-pill {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--sky);
+      border: 1px solid rgba(19,131,244,0.35);
+      background: rgba(19,131,244,0.08);
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    /* ── PDF VIEWER ────────────────────────────────────────────── */
+    .pdf-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 6vw, 80px) 80px;
+    }
+    .pdf-label {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 16px;
+    }
+    .pdf-frame-wrap {
+      position: relative;
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      background: #1a1f6e;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+    }
+    .pdf-frame-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 80vh;
+      min-height: 600px;
+      border: none;
+      background: #fff;
+    }
+    .pdf-interaction-block {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 44px;
+      z-index: 2;
+      cursor: default;
+    }
+
+    /* ── PDF EXPAND BUTTON ─────────────────────────────────────── */
+    .pdf-expand-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(10,17,114,0.82);
+      border: 1px solid rgba(239,236,225,0.22);
+      color: var(--neutral);
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-head);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .pdf-expand-btn:hover { background: rgba(10,17,114,0.98); }
+
+    /* ── PDF LIGHTBOX ──────────────────────────────────────────── */
+    .pdf-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+      background: rgba(0,0,0,0.88);
+      align-items: center;
+      justify-content: center;
+    }
+    .pdf-lightbox.open { display: flex; }
+    .pdf-lightbox-inner {
+      position: relative;
+      width: min(94vw, 1280px);
+      height: 94vh;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+    .pdf-lightbox-inner iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+    }
+    .pdf-lightbox-close {
+      position: absolute;
+      top: -50px; right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2.4rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px 8px;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .pdf-lightbox-close:hover { opacity: 1; }
+
+    /* ── CONTENT SECTIONS ──────────────────────────────────────── */
+    .content-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 6vw, 80px) 64px;
+    }
+    .content-block {
+      margin-bottom: 48px;
+    }
+    .content-block h2 {
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--neutral);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .content-block h3 {
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mango);
+      margin-bottom: 8px;
+      margin-top: 28px;
+    }
+    .content-block h3:first-child { margin-top: 0; }
+    .content-block p {
+      font-size: 0.97rem;
+      line-height: 1.78;
+      color: rgba(239,236,225,0.78);
+      margin-bottom: 12px;
+    }
+    .content-block ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .content-block ul li {
+      font-size: 0.97rem;
+      line-height: 1.65;
+      color: rgba(239,236,225,0.78);
+      padding-left: 18px;
+      position: relative;
+    }
+    .content-block ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--sky);
+      font-weight: 700;
+    }
+
+    /* meta grid */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 540px) { .meta-grid { grid-template-columns: 1fr; } }
+    .meta-item {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .meta-item-label {
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mango);
+      margin-bottom: 4px;
+    }
+    .meta-item-value {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: rgba(239,236,225,0.85);
+    }
+
+    /* RACI table */
+    .raci-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--glass-border);
+      margin-bottom: 16px;
+    }
+    .raci-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .raci-table thead th {
+      font-family: var(--font-head);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mango);
+      background: rgba(239,236,225,0.06);
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--glass-border);
+      white-space: nowrap;
+    }
+    .raci-table tbody tr { border-bottom: 1px solid rgba(239,236,225,0.07); }
+    .raci-table tbody tr:last-child { border-bottom: none; }
+    .raci-table tbody tr:hover { background: rgba(239,236,225,0.04); }
+    .raci-table tbody td {
+      padding: 12px 16px;
+      color: rgba(239,236,225,0.78);
+      vertical-align: top;
+    }
+    .raci-table tbody td:first-child { color: rgba(239,236,225,0.92); font-weight: 500; }
+    .raci-badge {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .raci-r { background: rgba(19,131,244,0.2); color: var(--sky); }
+    .raci-a { background: rgba(246,162,5,0.18); color: var(--mango); }
+    .raci-c { background: rgba(239,236,225,0.1); color: rgba(239,236,225,0.75); }
+    .raci-i { background: rgba(138,151,168,0.15); color: var(--slate); }
+
+    .raci-legend {
+      font-size: 0.8rem;
+      color: var(--slate);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* at-a-glance bullets */
+    .glance-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 540px) { .glance-grid { grid-template-columns: 1fr; } }
+    .glance-item {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: rgba(239,236,225,0.8);
+    }
+
+    /* reflection cards */
+    .reflection-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 680px) { .reflection-grid { grid-template-columns: 1fr; } }
+    .reflection-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+    }
+    .reflection-card h3 { margin-top:0;
+      font-family: var(--font-head);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--neutral);
+      margin-bottom: 10px;
+    }
+    .reflection-card p {
+      font-size: 0.88rem;
+      line-height: 1.72;
+      color: rgba(239,236,225,0.72);
+      margin-bottom: 0;
+    }
+
+    /* ── SECTION DIVIDER ───────────────────────────────────────── */
+    .section-divider {
+      max-width: 1100px;
+      margin: 0 auto 48px;
+      padding: 0 clamp(20px, 6vw, 80px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    /* ── CTA STRIP ─────────────────────────────────────────────── */
+    .cta-strip {
+      background: var(--grad-brand);
+      padding: 60px clamp(20px, 6vw, 80px);
+      text-align: center;
+    }
+    .cta-strip h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    .btn-cta {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      transition: opacity 0.2s;
+    }
+    .btn-cta:hover { opacity: 0.88; }
+
+    /* ── FOOTER ────────────────────────────────────────────────── */
+    footer {
+      background: rgba(0,0,0,0.35);
+      border-top: 1px solid var(--glass-border);
+      padding: 32px clamp(20px, 6vw, 80px);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--neutral);
+      letter-spacing: 0.06em;
+    }
+    .footer-brand p {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.78rem;
+      color: var(--slate);
+      letter-spacing: 0;
+      margin-top: 2px;
+    }
+    .footer-copy { font-size: 0.75rem; color: var(--slate); margin-top: 4px; }
+    .footer-nav { display: flex; gap: 24px; }
+    .footer-nav a {
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--slate);
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--neutral); }
+
+    /* ── MOBILE NAV ────────────────────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px; height: 36px;
+      background: none; border: none;
+      cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--neutral); border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .nav-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(10,17,114,0.97);
+      z-index: 99; flex-direction: column;
+      align-items: center; justify-content: center; gap: 32px;
+    }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a {
+      font-family: var(--font-head); font-size: 1.4rem;
+      font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--neutral);
+    }
+    .nav-overlay .overlay-close {
+      position: absolute; top: 20px; right: 24px;
+      font-size: 1.8rem; background: none; border: none;
+      color: var(--neutral); cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+  
+    /* ── ACCESSIBILITY (WCAG 2.2 AA) ───────────────────────────── */
+    a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid var(--sky); outline-offset: 2px; border-radius: 4px;
+    }
+    .skill-pill { color: #8FC2FA; border-color: rgba(19,131,244,0.5); background: rgba(19,131,244,0.14); }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────────────────────── -->
+<nav class="main-nav" id="main-nav">
+  <a href="index.html" class="nav-logo">KAI <span>SAKS</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#works">Works</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Work With Me</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile overlay -->
+<div class="nav-overlay" id="nav-overlay">
+  <button class="overlay-close" id="overlay-close" aria-label="Close menu">&times;</button>
+  <a href="index.html#home">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#works">Works</a>
+  <a href="index.html#contact">Contact</a>
+</div>
+
+
+<!-- ── HERO ─────────────────────────────────────────────────────────── -->
+<section class="artifact-hero">
+
+  <a href="index.html#works" class="back-link">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Works
+  </a>
+
+  <div class="artifact-meta-row">
+    <span class="artifact-category-tag">Project &amp; Program Management</span>
+    <span class="artifact-type-tag">Project Charter · Scope Document</span>
+  </div>
+
+  <h1 class="artifact-title"><em>LMS Migration Charter &amp; Scope</em></h1>
+
+  <p class="artifact-desc">
+    The one-page agreement I write before a single course gets touched. This is a representative charter for moving roughly 6,000 learners off an aging proprietary LMS onto a modern SaaS platform: the objectives, what's in and (just as importantly) what's out, the phase plan, who owns which call, and where the risks are hiding. It's the document that keeps a migration honest when the "can we also just…" requests start rolling in.
+  </p>
+
+  <div class="skills-row">
+    <span class="skill-pill">LMS Migration</span>
+    <span class="skill-pill">Project Scoping</span>
+    <span class="skill-pill">Vendor Management</span>
+    <span class="skill-pill">Change Management</span>
+    <span class="skill-pill">RACI Design</span>
+    <span class="skill-pill">Risk Planning</span>
+    <span class="skill-pill">Adoption Metrics</span>
+  </div>
+
+</section>
+
+
+<!-- ── OVERVIEW ─────────────────────────────────────────────────────── -->
+<section class="content-section" aria-label="Project overview">
+  <div class="content-block">
+    <h2>Overview</h2>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <p class="meta-item-label">Role</p>
+        <p class="meta-item-value">Program Manager, scope, governance, and delivery lead</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Type</p>
+        <p class="meta-item-value">Project charter and scope document</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Scope</p>
+        <p class="meta-item-value">Enterprise LMS migration, proprietary platform to SaaS; ~6,000 users across three brands and multiple regions</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Duration</p>
+        <p class="meta-item-value">~6 months (26 weeks), enterprise-tier, readiness through hypercare</p>
+      </div>
+    </div>
+
+    <p style="margin-top:20px;">Companion document: this charter pairs with the <a href="lms-migration-sow.html" style="color:var(--mango);border-bottom:1px solid var(--mango);">LMS Migration Scope of Work</a>, which breaks the high-level scope into detailed deliverables, acceptance criteria, and a work breakdown.</p>
+
+    <h3>The Problem</h3>
+    <p>The old LMS was a proprietary system that had quietly stopped keeping up. Reporting meant exporting spreadsheets by hand, the learner experience felt dated, and every brand we added stretched it a little thinner. We needed to move about 6,000 users and years of compliance history onto a modern SaaS platform, without losing a single certification record and without putting training on pause while we did it.</p>
+
+    <h3>What I Did</h3>
+    <p>I wrote the charter first. Before kickoff, before vendor demos, before anyone opened the authoring tool. It's tempting to skip this step and start "making progress," but the migrations I've watched go sideways almost never failed on the technology. They failed because nobody agreed on scope, and the project quietly grew until the timeline snapped. So I put it all on paper: what we were solving, what "done" actually looked like, who owned each decision, and the risks I could already see coming. Everyone signed off before we started.</p>
+
+    <h3>Why It Matters</h3>
+    <p>A charter isn't paperwork; it's the thing you point back to. When a brand lead asks for a custom feature in week nine, you don't argue. You open the scope section, show them where it lives (phase two), and keep the date. That's the whole job: protect the learners, protect the compliance records, protect the timeline.</p>
+  </div>
+</section>
+
+
+<!-- ── PDF VIEWER ───────────────────────────────────────────────────── -->
+<section class="pdf-section">
+  <p class="pdf-label">Charter: Full Document</p>
+  <div class="pdf-frame-wrap">
+    <div class="pdf-interaction-block" aria-hidden="true"></div>
+    <button class="pdf-expand-btn" id="pdf-expand-btn" aria-label="Expand PDF to full screen">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      Expand
+    </button>
+    <iframe
+      id="pdf-inline"
+      src="artifacts/lms-migration-charter.pdf#toolbar=0&navpanes=0&view=FitH"
+      title="LMS Migration Scope and Charter"
+      loading="lazy"
+      allow="fullscreen"
+    ></iframe>
+  </div>
+</section>
+
+
+<!-- ── DIVIDER ──────────────────────────────────────────────────────── -->
+<div class="section-divider"></div>
+<!-- ── REFLECTION ───────────────────────────────────────────────────── -->
+<section class="content-section" aria-label="Reflection">
+  <div class="content-block">
+    <h2>What Worked &amp; What I'd Change</h2>
+    <div class="reflection-grid">
+      <div class="reflection-card">
+        <h3>Writing the charter first saved us later.</h3>
+        <p>Every "can we also just…" had a home, phase two, instead of quietly eating the timeline. When the requests came, and they always do, the answer was already written down.</p>
+      </div>
+      <div class="reflection-card">
+        <h3>Migrating in waves beat a big-bang cutover.</h3>
+        <p>Moving one brand at a time meant we caught the messy user-mapping issues on brand one, before they had a chance to hit all three at once.</p>
+      </div>
+      <div class="reflection-card">
+        <h3>Naming what was out of scope did the heavy lifting.</h3>
+        <p>It felt almost too simple, but the "for now" list is what kept the date. People will respect a boundary far more than a vague "we'll see."</p>
+      </div>
+      <div class="reflection-card">
+        <h3>What I'd change next time.</h3>
+        <p>I'd lock the success metrics on day one instead of during the build. Start the measurement conversation early and the 30/60/90 review has a clean baseline, not one you're stitching together after the fact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ── BACK TO WORKS ─────────────────────────────────────────────────── -->
+<div style="max-width:1100px;margin:0 auto 48px;padding:0 clamp(20px,6vw,80px);">
+  <a href="index.html#works" class="back-link">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Works
+  </a>
+</div>
+
+
+<!-- ── CTA STRIP ─────────────────────────────────────────────────────── -->
+<section class="cta-strip">
+  <h2>Interested in what I can build for you?</h2>
+  <a href="index.html#contact" class="btn-cta">Work With Me →</a>
+</section>
+
+
+<!-- ── FOOTER ────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      KAI SAKS
+      <p>The Efficiency Alchemist</p>
+      <p class="footer-copy">© 2026 Kai Saks. All rights reserved.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#works">Works</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+
+<!-- ── PDF LIGHTBOX ──────────────────────────────────────────────────── -->
+<div id="pdf-lightbox" class="pdf-lightbox" role="dialog" aria-modal="true" aria-label="PDF enlarged view">
+  <div class="pdf-lightbox-inner">
+    <button id="pdf-lb-close" class="pdf-lightbox-close" aria-label="Close enlarged view">&times;</button>
+    <iframe id="pdf-lb-frame" src="" title="PDF enlarged view" allow="fullscreen"></iframe>
+  </div>
+</div>
+
+
+<script>
+/* ─── NAV SCROLL ──────────────────────────────────────────── */
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ─── MOBILE MENU ─────────────────────────────────────────── */
+const hamburger = document.getElementById('hamburger');
+const overlay   = document.getElementById('nav-overlay');
+const closeBtn  = document.getElementById('overlay-close');
+
+hamburger.addEventListener('click', () => {
+  const isOpen = overlay.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+closeBtn.addEventListener('click', closeMenu);
+overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+function closeMenu() {
+  overlay.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+/* ─── PDF EXPAND LIGHTBOX ─────────────────────────────────── */
+const pdfLightbox  = document.getElementById('pdf-lightbox');
+const pdfLbFrame   = document.getElementById('pdf-lb-frame');
+const pdfLbClose   = document.getElementById('pdf-lb-close');
+const pdfExpandBtn = document.getElementById('pdf-expand-btn');
+const pdfInline    = document.getElementById('pdf-inline');
+
+function openPdfLightbox() {
+  pdfLbFrame.src = pdfInline.src;
+  pdfLightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  pdfLbClose.focus();
+}
+
+function closePdfLightbox() {
+  pdfLightbox.classList.remove('open');
+  pdfLbFrame.src = '';
+  document.body.style.overflow = '';
+  pdfExpandBtn.focus();
+}
+
+pdfExpandBtn.addEventListener('click', openPdfLightbox);
+pdfLbClose.addEventListener('click', closePdfLightbox);
+pdfLightbox.addEventListener('click', function(e) {
+  if (e.target === this) closePdfLightbox();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && pdfLightbox.classList.contains('open')) closePdfLightbox();
+});
+</script>
+
+</body>
+</html>
