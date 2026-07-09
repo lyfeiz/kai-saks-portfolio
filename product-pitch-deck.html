@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlexCore EMS: Product Pitch Deck — Kai Saks</title>
+  <title>Product Pitch Deck | Kai Saks</title>
   <meta name="description" content="A full investor pitch deck demonstrating product thinking, market sizing, unit economics, and stakeholder storytelling.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -223,7 +223,7 @@
       border: none;
       background: #fff;
     }
-    /* Invisible overlay blocks right-click on the iframe — prevents "Save As" from iframe context menu */
+    /* Invisible overlay blocks right-click on the iframe, prevents "Save As" from iframe context menu */
     .pdf-interaction-block {
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -250,7 +250,7 @@
       border-radius: var(--radius);
       padding: 28px 32px;
     }
-    .context-card h3 {
+    .context-card h2 {
       font-family: var(--font-head);
       font-size: 0.75rem;
       font-weight: 700;
@@ -483,6 +483,15 @@
       padding: 0 clamp(20px, 6vw, 80px);
       border-bottom: 1px solid var(--glass-border);
     }
+  
+    /* ── ACCESSIBILITY (WCAG 2.2 AA) ───────────────────────────── */
+    a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid #1383F4; outline-offset: 2px; border-radius: 4px;
+    }
+    .skill-pill { color: #8FC2FA; border-color: rgba(19,131,244,0.5); background: rgba(19,131,244,0.14); }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+    }
   </style>
 </head>
 <body>
@@ -528,7 +537,7 @@
   <h1 class="artifact-title"><em>Product Pitch Deck</em></h1>
 
   <p class="artifact-desc">
-    A full investor pitch deck built for a wearable EMS fitness technology entering the North American market. Covers the market opportunity, science validation, unit economics, deployment strategy, and growth roadmap — structured to move a room from curiosity to conviction.
+    A full investor pitch deck built for a wearable EMS fitness technology entering the North American market. Covers the market opportunity, science validation, unit economics, deployment strategy, and growth roadmap, structured to move a room from curiosity to conviction.
   </p>
 
   <div class="skills-row">
@@ -572,7 +581,7 @@
 <section class="context-section" aria-label="Artifact context">
 
   <div class="context-card">
-    <h3>What This Demonstrates</h3>
+    <h2>What This Demonstrates</h2>
     <ul>
       <li>Translating technical product features into investor-ready narrative</li>
       <li>Market sizing with TAM/SAM/SOM breakdown</li>
@@ -583,14 +592,14 @@
   </div>
 
   <div class="context-card">
-    <h3>Deck Structure</h3>
+    <h2>Deck Structure</h2>
     <ul>
-      <li>Market &amp; Problem — opportunity framing</li>
-      <li>Science &amp; Safety — clinical validation</li>
-      <li>Economics — unit model and margins</li>
-      <li>Deployment — go-to-market phasing</li>
-      <li>Growth — expansion roadmap</li>
-      <li>Execution — team and timeline</li>
+      <li>Market &amp; Problem, opportunity framing</li>
+      <li>Science &amp; Safety, clinical validation</li>
+      <li>Economics, unit model and margins</li>
+      <li>Deployment, go-to-market phasing</li>
+      <li>Growth, expansion roadmap</li>
+      <li>Execution, team and timeline</li>
     </ul>
   </div>
 

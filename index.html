@@ -242,7 +242,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
 /* ============================================================
-   ABOUT PREVIEW (HOME) — headshot CSS fix
+   ABOUT PREVIEW (HOME), headshot CSS fix
    ============================================================ */
 .about-preview { background: var(--slate); position: relative; overflow: hidden; }
 .home-headshot-portrait {
@@ -396,7 +396,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .testimonial-controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 40px; }
 
 /* ============================================================
-   ABOUT PAGE — HERO
+   ABOUT PAGE, HERO
    ============================================================ */
 .about-hero { background: var(--navy); position: relative; overflow: hidden; }
 .about-hero-inner { padding: clamp(120px,12vw,160px) clamp(20px,5vw,60px) clamp(80px,8vw,120px); max-width: 1200px; margin: 0 auto; }
@@ -450,6 +450,9 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   max-width: 80vw; max-height: 80vh; object-fit: contain;
   border-radius: 12px; background: #fff; padding: 32px;
   box-shadow: 0 32px 80px rgba(0,0,0,0.4); cursor: default;
+  /* Match the ticker's monochrome treatment so white logos (e.g. Accuro,
+     FitRadio) remain visible on the white lightbox background. */
+  filter: grayscale(1) brightness(0.2);
 }
 .lightbox-close {
   position: absolute; top: 24px; right: 32px;
@@ -461,7 +464,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .exp-ticker-logo { cursor: zoom-in; }
 
 /* ============================================================
-   EXPERIENCE — REDESIGNED
+   EXPERIENCE, REDESIGNED
    ============================================================ */
 .experience-section { background: var(--slate); position: relative; overflow: hidden; }
 .exp-intro { font-size: 1.05rem; color: rgba(10,17,114,0.72); line-height: 1.8; margin: 20px 0 40px; }
@@ -565,7 +568,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .work-hidden { display: none !important; }
 
 /* ============================================================
-   CONTACT PAGE — 2-COLUMN
+   CONTACT PAGE, 2-COLUMN
    ============================================================ */
 .contact-section { background: var(--slate); position: relative; overflow: hidden; min-height: 100vh; }
 .contact-wrapper {
@@ -744,7 +747,7 @@ footer {
         <p class="hero-credentials">M.S.M &nbsp;·&nbsp; PMP<sup>®</sup> &nbsp;·&nbsp; CFE</p>
         <p class="hero-headline">WHERE BUSINESS, LEARNING &amp; AI MEET <em class="accent">RESULTS.</em></p>
         <p class="hero-tagline">The Efficiency Alchemist</p>
-        <p class="hero-bio">I build programs that help people and organizations grow — and the systems that make that growth stick.</p>
+        <p class="hero-bio">I build programs that help people and organizations grow, and the systems that make that growth stick.</p>
         <div class="hero-cta">
           <a href="#contact" class="btn btn-primary" onclick="goTo('contact'); return false;">Let's Talk</a>
           <a href="#works" class="btn btn-outline" onclick="goTo('works'); return false;">See My Work</a>
@@ -769,7 +772,7 @@ footer {
         </div>
         <div class="fade-up delay-1">
           <h2 style="color:var(--navy);margin-bottom:20px;">Building programs that actually <em class="accent">stick.</em></h2>
-          <p style="color:rgba(10,17,114,0.82);line-height:1.8;margin-bottom:16px;">I've spent my career at the intersection of how people learn and how organizations grow. My foundation is L&amp;D — designing curricula and programs that build real skills, not just check compliance boxes.</p>
+          <p style="color:rgba(10,17,114,0.82);line-height:1.8;margin-bottom:16px;">I've spent my career at the intersection of how people learn and how organizations grow. My foundation is L&amp;D, designing curricula and programs that build real skills, not just check compliance boxes.</p>
           <p style="color:rgba(10,17,114,0.82);line-height:1.8;margin-bottom:32px;">In recent years, I've specialized in AI Enablement: helping organizations move from AI curiosity to genuine, sustainable adoption. This means designing the training, building the readiness frameworks, and managing the change that makes AI actually work for the humans using it.</p>
           <a href="#about" class="btn btn-primary" onclick="goTo('about'); return false;">About Me →</a>
         </div>
@@ -819,7 +822,7 @@ footer {
               <img src="images/LD-Service.png" alt="Learning and Development design" loading="lazy">
               <div class="panel-img-overlay"></div>
             </div>
-            <p class="panel-desc">I design learning experiences built around real business outcomes — from needs analysis to facilitator guides. Whether classroom, virtual, or self-paced, I build programs that stick.</p>
+            <p class="panel-desc">I design learning experiences built around real business outcomes, from needs analysis to facilitator guides. Whether classroom, virtual, or self-paced, I build programs that stick.</p>
             <div class="panel-tags">
               <span class="tag">Curriculum Design</span><span class="tag">ILT/vILT</span><span class="tag">eLearning</span><span class="tag">Kirkpatrick</span><span class="tag">Needs Analysis</span><span class="tag">ADDIE</span>
             </div>
@@ -839,7 +842,7 @@ footer {
               <img src="images/PManagement.png" alt="Project and program management" loading="lazy">
               <div class="panel-img-overlay"></div>
             </div>
-            <p class="panel-desc">Complex initiatives — and entire programs — run better with clear scopes, realistic timelines, and stakeholders who are never surprised. I bring full-cycle PM and program management rigor to multi-workstream, cross-functional work of all sizes.</p>
+            <p class="panel-desc">Complex initiatives, and entire programs, run better with clear scopes, realistic timelines, and stakeholders who are never surprised. I bring full-cycle PM and program management rigor to multi-workstream, cross-functional work of all sizes.</p>
             <div class="panel-tags">
               <span class="tag">Agile/Scrum</span><span class="tag">SOW</span><span class="tag">Risk Management</span><span class="tag">Program Strategy</span><span class="tag">RACI</span><span class="tag">Governance</span>
             </div>
@@ -849,7 +852,7 @@ footer {
               <img src="images/P%26P%20Design.jpeg" alt="Product design and management" loading="lazy">
               <div class="panel-img-overlay"></div>
             </div>
-            <p class="panel-desc">From defining what to build to shipping it and measuring what worked — I design and manage products end to end. Every initiative gets a clear owner, a defensible roadmap, and success metrics that actually matter.</p>
+            <p class="panel-desc">From defining what to build to shipping it and measuring what worked, I design and manage products end to end. Every initiative gets a clear owner, a defensible roadmap, and success metrics that actually matter.</p>
             <div class="panel-tags">
               <span class="tag">Roadmapping</span><span class="tag">PRDs</span><span class="tag">OKRs</span><span class="tag">Prioritization</span><span class="tag">Go-to-Market</span><span class="tag">Product Strategy</span>
             </div>
@@ -876,15 +879,6 @@ footer {
               <p class="card-title">AI Readiness Index</p>
               <p class="card-desc">Interactive 6-dimension diagnostic for evaluating AI readiness in distributed service organizations.</p>
               <a href="ai-readiness-assessment.html" class="card-link">View <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-            </div>
-          </div>
-          <!-- AI Enablement -->
-          <div class="carousel-card" onclick="window.location='ai-tool-deployment-playbook.html'" style="cursor:pointer;">
-            <div class="card-thumb" style="background-image:url('images/AI-Deployment-Playbook-Thumbnail.png');background-size:cover;background-position:center top;"><span class="card-category">AI Enablement</span></div>
-            <div class="card-body">
-              <p class="card-title">AI Tool Deployment Playbook</p>
-              <p class="card-desc">Six-phase framework for deploying AI tools to distributed, non-technical service workforces.</p>
-              <a href="ai-tool-deployment-playbook.html" class="card-link">View <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
             </div>
           </div>
           <!-- L&D Design -->
@@ -1028,7 +1022,7 @@ footer {
       <div class="about-two-col">
         <div>
           <h1 id="about-heading" class="about-headline">Cutting-edge L&amp;D <em class="accent">specialist</em> for the AI era.</h1>
-          <p class="about-bio">I'm Kai Saks — an L&amp;D specialist and AI Enablement expert based in Austin, TX. My passion is building the programs that make learning real. For over a decade I've worked inside high-growth fitness and health brands, leading training at scale across 50+ countries. The last several years have centered on helping organizations actually become AI-ready — designing the frameworks, curricula, and change management programs that bridge the gap between AI curiosity and genuine adoption.</p>
+          <p class="about-bio">I'm Kai Saks, an L&amp;D specialist and AI Enablement expert based in Austin, TX. My passion is building the programs that make learning real. For over a decade I've worked inside high-growth fitness and health brands, leading training at scale across 50+ countries. The last several years have centered on helping organizations actually become AI-ready, designing the frameworks, curricula, and change management programs that bridge the gap between AI curiosity and genuine adoption.</p>
           <p class="about-bio">I bring a rare combination: the structure of a project manager, the user-first lens of a product thinker, and the forward-looking fluency of someone who's been in the AI space before most teams knew they needed it.</p>
           <div class="about-cta-row">
             <a href="#contact" class="btn btn-primary" onclick="goTo('contact'); return false;">Let's Talk</a>
@@ -1069,7 +1063,7 @@ footer {
     </div>
   </section>
 
-  <!-- EXPERIENCE — REDESIGNED -->
+  <!-- EXPERIENCE, REDESIGNED -->
   <section class="experience-section section-pad" aria-labelledby="exp-heading">
     <div class="section-label-wrap right" aria-hidden="true"><span class="section-label">(Experience)</span></div>
     <div class="container">
@@ -1172,14 +1166,14 @@ footer {
       <h2 id="certs-heading" style="color:var(--navy);text-align:center;" class="fade-up">My <em class="accent">Certifications</em></h2>
       <div class="certs-grid">
         <div class="cert-item fade-up">
-          <img src="images/PMI-PMP-Badge.png" alt="Project Management Professional — PMI" class="cert-logo-img">
+          <img src="images/PMI-PMP-Badge.png" alt="Project Management Professional, PMI" class="cert-logo-img">
           <p class="cert-credential">PMP<sup>®</sup></p>
           <p class="cert-name">Project Management Professional</p>
           <p class="cert-issuer">Project Management Institute</p>
         </div>
         <div class="cert-item fade-up delay-1">
           <div class="cert-logo-box">
-            <img src="images/IFA-Logo.jpeg" alt="Certified Franchise Executive — IFA">
+            <img src="images/IFA-Logo.jpeg" alt="Certified Franchise Executive, IFA">
           </div>
           <p class="cert-credential">CFE</p>
           <p class="cert-name">Certified Franchise Executive</p>
@@ -1201,7 +1195,7 @@ footer {
 
     <div class="works-hero">
       <h1 id="works-heading" style="color:var(--navy);" class="fade-up">Crafting <em class="accent">results</em> that endure.</h1>
-      <p style="color:rgba(10,17,114,0.7);margin-top:16px;font-size:1rem;line-height:1.75;" class="fade-up delay-1">A collection of frameworks, tools, and deliverables built to drive real outcomes. Selected work shown here — additional samples available on request.</p>
+      <p style="color:rgba(10,17,114,0.7);margin-top:16px;font-size:1rem;line-height:1.75;" class="fade-up delay-1">A collection of frameworks, tools, and deliverables built to drive real outcomes. Selected work shown here, additional samples available on request.</p>
     </div>
 
     <div class="filter-tabs" role="tablist" aria-label="Filter work by category">
@@ -1217,7 +1211,7 @@ footer {
       <div class="work-card" data-filter="ai" data-url="ai-readiness-assessment.html" data-status="live">
         <div class="work-card-thumb" style="background-image:url('images/AI Readiness Thumbnail.png');background-size:cover;background-position:center top;">
           <div class="work-card-overlay">
-            <p class="work-card-overlay-desc">Score your organization across 6 dimensions — Signal Literacy, Workflow Proximity, Champion Density, and more — and get your readiness stage with concrete next steps.</p>
+            <p class="work-card-overlay-desc">Score your organization across 6 dimensions, Signal Literacy, Workflow Proximity, Champion Density, and more, and get your readiness stage with concrete next steps.</p>
             <span class="work-card-btn">Use the Tool →</span>
           </div>
         </div>
@@ -1225,20 +1219,6 @@ footer {
           <p class="work-cat">AI Enablement</p>
           <p class="work-card-title">AI Readiness Index</p>
           <p class="work-card-desc">Interactive 6-dimension diagnostic for evaluating AI readiness in distributed service organizations.</p>
-        </div>
-      </div>
-
-      <div class="work-card" data-filter="ai" data-url="ai-tool-deployment-playbook.html" data-status="live">
-        <div class="work-card-thumb" style="background-image:url('images/AI-Deployment-Playbook-Thumbnail.png');background-size:cover;background-position:center top;">
-          <div class="work-card-overlay">
-            <p class="work-card-overlay-desc">End-to-end deployment framework: readiness check, champion activation, phased go-live, and three-layer adoption and business-outcome measurement.</p>
-            <span class="work-card-btn">View Playbook →</span>
-          </div>
-        </div>
-        <div class="work-card-meta">
-          <p class="work-cat">AI Enablement</p>
-          <p class="work-card-title">AI Tool Deployment Playbook</p>
-          <p class="work-card-desc">End-to-end deployment framework: readiness check, champion activation, phased go-live, and three-tier adoption measurement.</p>
         </div>
       </div>
 
@@ -1270,16 +1250,44 @@ footer {
         </div>
       </div>
 
+      <div class="work-card" data-filter="pm" data-url="lms-migration-charter.html" data-status="live">
+        <div class="work-card-thumb" style="background-image:url('images/LMS-Charter-Thumbnail.png');background-size:cover;background-position:center;">
+          <div class="work-card-overlay">
+            <p class="work-card-overlay-desc">The one-page agreement I write before touching a single course, objectives, scope guardrails, phase plan, RACI, and risk mitigations for moving ~6,000 learners off a proprietary LMS onto SaaS.</p>
+            <span class="work-card-btn">View Charter →</span>
+          </div>
+        </div>
+        <div class="work-card-meta">
+          <p class="work-cat">Project &amp; Program Management</p>
+          <p class="work-card-title">LMS Migration Charter &amp; Scope</p>
+          <p class="work-card-desc">Project charter for an enterprise LMS migration: what's in, what's out, who owns what, and where the risks hide.</p>
+        </div>
+      </div>
+
+      <div class="work-card" data-filter="pm" data-url="lms-migration-sow.html" data-status="live">
+        <div class="work-card-thumb" style="background-image:url('images/LMS-SOW-Thumbnail.png');background-size:cover;background-position:center;">
+          <div class="work-card-overlay">
+            <p class="work-card-overlay-desc">The companion Scope of Work: detailed deliverables with acceptance criteria, functional and technical requirements, a full work breakdown structure, RACI, constraints, and a risk register.</p>
+            <span class="work-card-btn">View SOW →</span>
+          </div>
+        </div>
+        <div class="work-card-meta">
+          <p class="work-cat">Project &amp; Program Management</p>
+          <p class="work-card-title">LMS Migration Scope of Work</p>
+          <p class="work-card-desc">An enterprise ~6-month plan benchmarked to real implementation data, deliverables, acceptance criteria, WBS, RACI, and a live Excel toolkit.</p>
+        </div>
+      </div>
+
       <div class="work-card" data-filter="ld" data-url="learning-needs-analysis.html" data-status="live">
         <div class="work-card-thumb" style="background-image:url('images/LNA Thumbnail Image.png');background-size:cover;background-position:center top;">
           <div class="work-card-overlay">
-            <p class="work-card-overlay-desc">Pre-deployment LNA for a fast-casual chain's dual tech rollout — maps training gaps by audience, surfaces deployment risk, and defines a constraint-aware training architecture.</p>
+            <p class="work-card-overlay-desc">Pre-deployment LNA for a fast-casual chain's dual tech rollout, maps training gaps by audience, surfaces deployment risk, and defines a constraint-aware training architecture.</p>
             <span class="work-card-btn">View Deliverable →</span>
           </div>
         </div>
         <div class="work-card-meta">
           <p class="work-cat">L&amp;D Design</p>
-          <p class="work-card-title">Learning Needs Analysis — Fieldstone Kitchen Co.</p>
+          <p class="work-card-title">Learning Needs Analysis, Fieldstone Kitchen Co.</p>
           <p class="work-card-desc">Constraint-aware LNA for a POS migration + AI scheduling rollout across 87 fast-casual locations.</p>
         </div>
       </div>
@@ -1299,7 +1307,7 @@ footer {
       <!-- LEFT: intro + details -->
       <div class="contact-left">
         <h1 id="contact-heading" class="fade-up">Say hi. Tell me what you're <em class="accent">working on.</em></h1>
-        <p class="contact-intro fade-up delay-1">Whether it's a defined project or just a hunch that something could work better — let's talk. I take on a limited number of engagements at a time and bring full focus to every one.</p>
+        <p class="contact-intro fade-up delay-1">Whether it's a defined project or just a hunch that something could work better, let's talk. I take on a limited number of engagements at a time and bring full focus to every one.</p>
         <div class="contact-details fade-up delay-2">
           <div class="contact-detail">
             <div class="contact-detail-icon">
@@ -1601,9 +1609,9 @@ if (form) {
         method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }
       });
       if (res.ok) { form.style.display = 'none'; success.classList.add('show'); }
-      else { submitBtn.textContent = 'Error — please try again'; submitBtn.disabled = false; }
+      else { submitBtn.textContent = 'Error, please try again'; submitBtn.disabled = false; }
     } catch {
-      submitBtn.textContent = 'Error — please try again'; submitBtn.disabled = false;
+      submitBtn.textContent = 'Error, please try again'; submitBtn.disabled = false;
     }
   });
 }
@@ -1651,7 +1659,7 @@ document.querySelector('.view-all').addEventListener('keydown', e => {
     if (e.key === 'Escape' && lb.style.display === 'flex') closeLightbox();
   });
 
-  // Document-level delegation so it works for every logo — including the
+  // Document-level delegation so it works for every logo, including the
   // duplicated (aria-hidden) clones the marquee scrolls into view.
   document.addEventListener('click', function(e) {
     var img = e.target.closest && e.target.closest('.exp-ticker-logo');

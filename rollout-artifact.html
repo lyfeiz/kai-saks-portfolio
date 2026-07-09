@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Program Rollout Roadmap — Kai Saks</title>
+  <title>Program Rollout Roadmap | Kai Saks</title>
   <meta name="description" content="A phased rollout roadmap sequencing central-team enablement, field support, go-live, and post-launch measurement for a multi-location pricing and program launch.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -467,7 +467,7 @@
       border-radius: var(--radius);
       padding: 24px 28px;
     }
-    .reflection-card h4 {
+    .reflection-card h3 { margin-top:0;
       font-family: var(--font-head);
       font-size: 0.82rem;
       font-weight: 700;
@@ -597,6 +597,15 @@
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
     }
+  
+    /* ── ACCESSIBILITY (WCAG 2.2 AA) ───────────────────────────── */
+    a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid #1383F4; outline-offset: 2px; border-radius: 4px;
+    }
+    .skill-pill { color: #8FC2FA; border-color: rgba(19,131,244,0.5); background: rgba(19,131,244,0.14); }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+    }
   </style>
 </head>
 <body>
@@ -642,7 +651,7 @@
   <h1 class="artifact-title"><em>Program Rollout Roadmap</em></h1>
 
   <p class="artifact-desc">
-    A four-view rollout package built for a multi-location pricing and program launch — covering the executive roadmap, week-by-week support timeline, field communication plan, and launch support structure. Designed to sequence enablement so every audience — central team, regional leadership, and location owners — knows exactly what to expect and when.
+    A four-view rollout package built for a multi-location pricing and program launch, covering the executive roadmap, week-by-week support timeline, field communication plan, and launch support structure. Designed to sequence enablement so every audience, central team, regional leadership, and location owners, knows exactly what to expect and when.
   </p>
 
   <div class="skills-row">
@@ -666,7 +675,7 @@
     <div class="meta-grid">
       <div class="meta-item">
         <p class="meta-item-label">Role</p>
-        <p class="meta-item-value">Program Manager — planning and communications lead</p>
+        <p class="meta-item-value">Program Manager, planning and communications lead</p>
       </div>
       <div class="meta-item">
         <p class="meta-item-label">Type</p>
@@ -690,10 +699,10 @@
 
     <h3>How It Works</h3>
     <ul>
-      <li><strong>Weeks 1–2, Foundation:</strong> Organize the Launch Support Team and deliver leadership education.</li>
-      <li><strong>Weeks 3–4, Briefing &amp; Training:</strong> Educate the central team, review FAQs, complete full training.</li>
-      <li><strong>Weeks 5–6, Go Live:</strong> Run scheduled support calls, release the program, and provide live field assistance.</li>
-      <li><strong>Weeks 8–9, Follow-Up:</strong> Survey regional leadership and analyze success and adoption metrics on a 30-60-90 cadence.</li>
+      <li><strong>Weeks 1, 2, Foundation:</strong> Organize the Launch Support Team and deliver leadership education.</li>
+      <li><strong>Weeks 3, 4, Briefing &amp; Training:</strong> Educate the central team, review FAQs, complete full training.</li>
+      <li><strong>Weeks 5, 6, Go Live:</strong> Run scheduled support calls, release the program, and provide live field assistance.</li>
+      <li><strong>Weeks 8, 9, Follow-Up:</strong> Survey regional leadership and analyze success and adoption metrics on a 30-60-90 cadence.</li>
     </ul>
 
     <h3>Why It Matters</h3>
@@ -834,7 +843,7 @@
       <div class="glance-item">Program Manager owns the plan, the enablement, and the feedback loop.</div>
       <div class="glance-item">Central Team owns education and go-live readiness.</div>
       <div class="glance-item">Launch Support Team carries the field-facing calls.</div>
-      <div class="glance-item">Regional Leadership and Location Owners own decisions inside their own scope — staffing and readiness.</div>
+      <div class="glance-item">Regional Leadership and Location Owners own decisions inside their own scope, staffing and readiness.</div>
     </div>
   </div>
 </section>
@@ -850,19 +859,19 @@
     <h2>What Worked &amp; What I Would Change</h2>
     <div class="reflection-grid">
       <div class="reflection-card">
-        <h4>Front-loading enablement paid off.</h4>
+        <h3>Front-loading enablement paid off.</h3>
         <p>By briefing the Central Team and standing up a dedicated Launch Support Team before any location-facing call, launch-day support was proactive instead of reactive. The people answering questions already knew the answers.</p>
       </div>
       <div class="reflection-card">
-        <h4>Naming an audience and purpose for every milestone reduced confusion.</h4>
+        <h3>Naming an audience and purpose for every milestone reduced confusion.</h3>
         <p>Each step in the timeline states who is invited and what the call covers. That single habit cut the "wait, is this for me?" back-and-forth that usually slows a multi-audience rollout.</p>
       </div>
       <div class="reflection-card">
-        <h4>One accountable owner per activity kept decisions moving.</h4>
+        <h3>One accountable owner per activity kept decisions moving.</h3>
         <p>The RACI made it clear that Regional Leadership owned readiness and Location Owners owned staffing, so those calls did not stall waiting on the central team.</p>
       </div>
       <div class="reflection-card">
-        <h4>What I would change next time.</h4>
+        <h3>What I would change next time.</h3>
         <p>I would add a mid-rollout checkpoint between the readiness review and go live to catch gaps earlier, and I would define the post-launch survey questions up front so the feedback loop starts on day one rather than two weeks later.</p>
       </div>
     </div>
