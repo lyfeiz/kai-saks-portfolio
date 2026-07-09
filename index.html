@@ -450,9 +450,6 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   max-width: 80vw; max-height: 80vh; object-fit: contain;
   border-radius: 12px; background: #fff; padding: 32px;
   box-shadow: 0 32px 80px rgba(0,0,0,0.4); cursor: default;
-  /* Match the ticker's monochrome treatment so white logos (e.g. Accuro,
-     FitRadio) remain visible on the white lightbox background. */
-  filter: grayscale(1) brightness(0.2);
 }
 .lightbox-close {
   position: absolute; top: 24px; right: 32px;
@@ -486,7 +483,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
   color: rgba(10,17,114,0.48); margin-bottom: 20px;
 }
-.exp-ticker-outer { overflow: hidden; }
+.exp-ticker-outer { overflow: hidden; background: #fff; border-radius: 14px; padding: 22px 0; box-shadow: 0 10px 30px rgba(10,17,114,0.10); }
 .exp-ticker-track {
   display: flex; align-items: center; gap: 64px;
   animation: exp-ticker 26s linear infinite; width: max-content;
@@ -494,10 +491,10 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .exp-ticker-track:hover { animation-play-state: paused; }
 @keyframes exp-ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 .exp-ticker-logo {
-  height: 34px; width: auto; max-width: 110px;
+  height: 40px; width: auto; max-width: 130px;
   object-fit: contain; flex-shrink: 0;
-  filter: grayscale(1) brightness(0.2); opacity: 0.8;
 }
+.exp-ticker-logo.logo-dark { filter: brightness(0.35) contrast(1.15); }
 .exp-note { font-size: 0.72rem; color: rgba(10,17,114,0.45); font-style: italic; margin-top: 18px; }
 
 /* ============================================================
@@ -1108,18 +1105,18 @@ footer {
         <div class="exp-ticker-track">
           <!-- Set 1 -->
           <img src="images/Choice_Hotels_logo.svg"      alt="Choice Hotels"        class="exp-ticker-logo">
-          <img src="images/Accuro%20logo%202.svg"       alt="Accurofit"            class="exp-ticker-logo">
+          <img src="images/Accuro%20Logo.svg"           alt="Accuro"               class="exp-ticker-logo">
           <img src="images/Moon_Sugar_Bakery_nobg.png"  alt="Moon Sugar Bakery"    class="exp-ticker-logo">
           <img src="images/Katana_nobg.png"             alt="Katana"               class="exp-ticker-logo">
-          <img src="images/FITRadio%20logo.svg"         alt="FitRadio"             class="exp-ticker-logo">
-          <img src="images/FIT%20House.png"             alt="FIT House of Brands"  class="exp-ticker-logo">
+          <img src="images/FitRadio%20Logo.svg"         alt="FitRadio"             class="exp-ticker-logo">
+          <img src="images/FIT%20House.png"             alt="FIT House of Brands"  class="exp-ticker-logo logo-dark">
           <!-- Set 2 (duplicate for seamless loop) -->
           <img src="images/Choice_Hotels_logo.svg"      alt=""                     class="exp-ticker-logo" aria-hidden="true">
-          <img src="images/Accuro%20logo%202.svg"       alt=""                     class="exp-ticker-logo" aria-hidden="true">
+          <img src="images/Accuro%20Logo.svg"           alt=""                     class="exp-ticker-logo" aria-hidden="true">
           <img src="images/Moon_Sugar_Bakery_nobg.png"  alt=""                     class="exp-ticker-logo" aria-hidden="true">
           <img src="images/Katana_nobg.png"             alt=""                     class="exp-ticker-logo" aria-hidden="true">
-          <img src="images/FITRadio%20logo.svg"         alt=""                     class="exp-ticker-logo" aria-hidden="true">
-          <img src="images/FIT%20House.png"             alt=""                     class="exp-ticker-logo" aria-hidden="true">
+          <img src="images/FitRadio%20Logo.svg"         alt=""                     class="exp-ticker-logo" aria-hidden="true">
+          <img src="images/FIT%20House.png"             alt=""                     class="exp-ticker-logo logo-dark" aria-hidden="true">
         </div>
       </div>
       <p class="exp-note fade-up delay-2">Representative, not exhaustive.</p>
@@ -1251,7 +1248,7 @@ footer {
       </div>
 
       <div class="work-card" data-filter="pm" data-url="lms-migration-charter.html" data-status="live">
-        <div class="work-card-thumb" style="background-image:url('images/LMS-Charter-Thumbnail.png');background-size:cover;background-position:center;">
+        <div class="work-card-thumb" style="background-image:url('images/Charter Thumbnail.png');background-size:cover;background-position:center top;">
           <div class="work-card-overlay">
             <p class="work-card-overlay-desc">The one-page agreement I write before touching a single course, objectives, scope guardrails, phase plan, RACI, and risk mitigations for moving ~6,000 learners off a proprietary LMS onto SaaS.</p>
             <span class="work-card-btn">View Charter →</span>
@@ -1265,7 +1262,7 @@ footer {
       </div>
 
       <div class="work-card" data-filter="pm" data-url="lms-migration-sow.html" data-status="live">
-        <div class="work-card-thumb" style="background-image:url('images/LMS-SOW-Thumbnail.png');background-size:cover;background-position:center;">
+        <div class="work-card-thumb" style="background-image:url('images/SOW Thumbnail.png');background-size:cover;background-position:center top;">
           <div class="work-card-overlay">
             <p class="work-card-overlay-desc">The companion Scope of Work: detailed deliverables with acceptance criteria, functional and technical requirements, a full work breakdown structure, RACI, constraints, and a risk register.</p>
             <span class="work-card-btn">View SOW →</span>
@@ -1287,7 +1284,7 @@ footer {
         </div>
         <div class="work-card-meta">
           <p class="work-cat">L&amp;D Design</p>
-          <p class="work-card-title">Learning Needs Analysis, Fieldstone Kitchen Co.</p>
+          <p class="work-card-title">Learning Needs Analysis: Fieldstone Kitchen Co.</p>
           <p class="work-card-desc">Constraint-aware LNA for a POS migration + AI scheduling rollout across 87 fast-casual locations.</p>
         </div>
       </div>
@@ -1641,9 +1638,10 @@ document.querySelector('.view-all').addEventListener('keydown', e => {
 
   if (!lb || !lbImg) return;
 
-  function openLightbox(src, alt) {
+  function openLightbox(src, alt, dark) {
     lbImg.src = src;
     lbImg.alt = alt || '';
+    lbImg.style.filter = dark ? 'brightness(0.35) contrast(1.15)' : 'none';
     lb.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }
@@ -1665,7 +1663,7 @@ document.querySelector('.view-all').addEventListener('keydown', e => {
     var img = e.target.closest && e.target.closest('.exp-ticker-logo');
     if (img) {
       e.preventDefault();
-      openLightbox(img.getAttribute('src'), img.getAttribute('alt'));
+      openLightbox(img.getAttribute('src'), img.getAttribute('alt'), img.classList.contains('logo-dark'));
     }
   });
 })();
