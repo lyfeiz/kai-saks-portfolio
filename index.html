@@ -458,7 +458,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   background: none; border: none; font-family: var(--font-head);
 }
 .lightbox-close:hover { opacity: 1; }
-.exp-ticker-logo { cursor: zoom-in; }
+.exp-ticker-logo { cursor: default; }
 
 /* ============================================================
    EXPERIENCE, REDESIGNED
@@ -1284,7 +1284,7 @@ footer {
         </div>
         <div class="work-card-meta">
           <p class="work-cat">L&amp;D Design</p>
-          <p class="work-card-title">Learning Needs Analysis: Fieldstone Kitchen Co.</p>
+          <p class="work-card-title">Learning Needs Analysis</p>
           <p class="work-card-desc">Constraint-aware LNA for a POS migration + AI scheduling rollout across 87 fast-casual locations.</p>
         </div>
       </div>
@@ -1657,15 +1657,8 @@ document.querySelector('.view-all').addEventListener('keydown', e => {
     if (e.key === 'Escape' && lb.style.display === 'flex') closeLightbox();
   });
 
-  // Document-level delegation so it works for every logo, including the
-  // duplicated (aria-hidden) clones the marquee scrolls into view.
-  document.addEventListener('click', function(e) {
-    var img = e.target.closest && e.target.closest('.exp-ticker-logo');
-    if (img) {
-      e.preventDefault();
-      openLightbox(img.getAttribute('src'), img.getAttribute('alt'), img.classList.contains('logo-dark'));
-    }
-  });
+  // Logo click-to-enlarge intentionally disabled: the logos are clearly
+  // legible in the strip, and enlarging small brand marks looked poor.
 })();
 </script>
 </body>
