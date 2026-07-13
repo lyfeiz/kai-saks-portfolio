@@ -61,7 +61,7 @@
     .artifact-title em{font-style:italic;display:inline-block;padding-right:0.06em;background:linear-gradient(135deg,#FFFFFF 0%,#F6A205 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
     .artifact-desc{font-size:1.05rem;line-height:1.78;color:rgba(239,236,225,0.82);margin-bottom:28px;}
     .skills-row{display:flex;flex-wrap:wrap;gap:8px;}
-    .skill-pill{font-family:var(--font-head);font-size:0.75rem;font-weight:600;letter-spacing:0.05em;color:var(--sky);border:1px solid rgba(19,131,244,0.35);background:rgba(19,131,244,0.08);padding:5px 14px;border-radius:20px;}
+    .skill-pill{font-family:var(--font-head);font-size:0.75rem;font-weight:600;letter-spacing:0.05em;color:#6EB8FF;border:1px solid rgba(19,131,244,0.35);background:rgba(19,131,244,0.08);padding:5px 14px;border-radius:20px;}
 
     /* ── DIVIDER ── */
     .divider{max-width:1100px;margin:40px auto;padding:0 clamp(20px,6vw,80px);}
@@ -73,7 +73,7 @@
     @media(max-width:700px){.method-inner{grid-template-columns:1fr 1fr;}}
     @media(max-width:400px){.method-inner{grid-template-columns:1fr;}}
     .method-item{}
-    .method-num{font-family:var(--font-head);font-size:1.8rem;font-weight:900;color:var(--sky);line-height:1;}
+    .method-num{font-family:var(--font-head);font-size:1.8rem;font-weight:900;color:#6EB8FF;line-height:1;}
     .method-label{font-family:var(--font-head);font-size:0.78rem;font-weight:700;color:var(--neutral);margin-top:4px;margin-bottom:2px;}
     .method-sub{font-size:0.75rem;color:var(--slate);}
 
@@ -171,7 +171,7 @@
     .ctx-card h2{font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mango);margin-bottom:14px;}
     .ctx-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
     .ctx-card ul li{font-size:0.88rem;line-height:1.65;color:rgba(239,236,225,0.72);display:flex;gap:8px;align-items:flex-start;}
-    .ctx-card ul li::before{content:'→';color:var(--sky);font-weight:700;flex-shrink:0;}
+    .ctx-card ul li::before{content:'→';color:#6EB8FF;font-weight:700;flex-shrink:0;}
 
     /* ── CTA ── */
     .cta-strip{background:var(--grad-brand);padding:56px clamp(20px,6vw,80px);text-align:center;}
@@ -200,7 +200,7 @@
 </head>
 <body>
 
-<nav class="main-nav" id="main-nav">
+<nav class="main-nav" id="main-nav" aria-label="Main navigation">
   <a href="index.html" class="nav-logo">KAI <span>SAKS</span></a>
   <ul class="nav-links">
     <li><a href="index.html#home">Home</a></li>
@@ -212,7 +212,7 @@
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 
-<div class="nav-overlay" id="nav-overlay">
+<div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <button class="overlay-close" id="overlay-close" aria-label="Close menu">&times;</button>
   <a href="index.html#home">Home</a>
   <a href="index.html#about">About</a>
@@ -220,10 +220,12 @@
   <a href="index.html#contact">Contact</a>
 </div>
 
+<main id="main">
+
 <!-- HERO -->
 <section class="hero">
   <a href="index.html#works" class="back-link">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <svg aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Back to Works
   </a>
   <div class="meta-row">
@@ -244,7 +246,7 @@
 
 <!-- ANONYMITY NOTE -->
 <div style="max-width:1100px;margin:0 auto 0;padding:0 clamp(20px,6vw,80px) 28px;">
-  <p style="font-size:0.78rem;line-height:1.6;color:rgba(239,236,225,0.45);border-left:2px solid rgba(239,236,225,0.18);padding-left:12px;">
+  <p style="font-size:0.78rem;line-height:1.6;color:rgba(239,236,225,0.75);border-left:2px solid rgba(239,236,225,0.18);padding-left:12px;">
     <em>Note: The company name, specific locations, and certain operational details in this deliverable have been changed to protect client confidentiality. The analysis methodology, findings, and training architecture reflect the actual engagement.</em>
   </p>
 </div>
@@ -280,7 +282,7 @@
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
     <p class="doc-label" style="margin-bottom:0;">Deliverable</p>
     <button class="expand-btn" id="expand-btn" onclick="toggleExpand()" aria-label="Expand document">
-      <svg id="expand-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      <svg aria-hidden="true" focusable="false" id="expand-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       Expand
     </button>
   </div>
@@ -489,7 +491,7 @@
 <!-- BACK TO WORKS (bottom) -->
 <div style="text-align:center;padding:36px 20px 0;">
   <a href="index.html#works" class="back-link" style="display:inline-flex;">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <svg aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Back to Works
   </a>
 </div>
@@ -501,10 +503,12 @@
 </div>
 
 <!-- FOOTER -->
+</main>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">KAI SAKS<p>The Efficiency Alchemist</p><p style="font-size:0.75rem;color:var(--slate);margin-top:4px;">© 2026 Kai Saks. All rights reserved.</p></div>
-    <nav class="footer-nav">
+    <nav class="footer-nav" aria-label="Footer navigation">
       <a href="index.html#home">Home</a>
       <a href="index.html#about">About</a>
       <a href="index.html#works">Works</a>
@@ -522,8 +526,8 @@ function toggleExpand() {
   const expanded = wrap.classList.toggle('expanded-mode');
   document.body.style.overflow = expanded ? 'hidden' : '';
   btn.innerHTML = expanded
-    ? `<svg id="expand-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 3v5H3M21 8h-5V3M3 16h5v5M16 21v-5h5"/></svg> Collapse`
-    : `<svg id="expand-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> Expand`;
+    ? `<svg aria-hidden="true" focusable="false" id="expand-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 3v5H3M21 8h-5V3M3 16h5v5M16 21v-5h5"/></svg> Collapse`
+    : `<svg aria-hidden="true" focusable="false" id="expand-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> Expand`;
   // Close on backdrop click
   if (expanded) {
     wrap.addEventListener('click', function closeOnBackdrop(e) {
@@ -549,5 +553,19 @@ closeBtn.addEventListener('click', () => { overlay.classList.remove('open'); ham
 overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { overlay.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }));
 </script>
 
+<script>
+/* Accessibility: mobile overlay Escape-to-close, focus trap, focus return */
+(function(){
+  var ov=document.getElementById('nav-overlay'), hb=document.getElementById('hamburger');
+  if(!ov) return;
+  document.addEventListener('keydown',function(e){
+    if(!ov.classList.contains('open')) return;
+    if(e.key==='Escape'){ ov.classList.remove('open'); document.body.style.overflow=''; if(hb){hb.setAttribute('aria-expanded','false'); hb.focus();} return; }
+    if(e.key==='Tab'){ var it=ov.querySelectorAll('a,button'); if(!it.length) return; var f=it[0],l=it[it.length-1];
+      if(e.shiftKey&&document.activeElement===f){e.preventDefault();l.focus();}
+      else if(!e.shiftKey&&document.activeElement===l){e.preventDefault();f.focus();} }
+  });
+})();
+</script>
 </body>
 </html>

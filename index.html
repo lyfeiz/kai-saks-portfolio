@@ -48,7 +48,7 @@
    RESET & BASE
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 body {
   font-family: var(--font-body);
   font-size: 16px;
@@ -73,6 +73,17 @@ ul { list-style: none; }
 }
 .skip-link:focus { top: 0; }
 *:focus-visible { outline: 2px solid var(--mango); outline-offset: 2px; }
+
+/* Route A: on the light (slate) sections, emphasized words use navy instead of
+   mango so they meet contrast (mango on slate ≈ 1.4:1 fails). Mango accents
+   remain on the dark navy sections where they pass at ~7.5:1. Emphasis is kept
+   via the existing italic styling. */
+.about-preview .accent,
+.carousel-section .accent,
+.experience-section .accent,
+.works-section .accent,
+.contact-section .accent,
+.certs-section .accent { color: var(--navy); }
 
 /* ============================================================
    TYPOGRAPHY
@@ -217,7 +228,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .hero-name { font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 900; color: var(--neutral); letter-spacing: -0.01em; margin-bottom: 4px; line-height: 1; }
 .hero-credentials {
   font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
-  letter-spacing: 0.22em; text-transform: uppercase; color: rgba(239,236,225,0.52);
+  letter-spacing: 0.22em; text-transform: uppercase; color: rgba(239,236,225,0.75);
   margin-bottom: 18px; margin-top: 2px;
 }
 .hero-headline {
@@ -236,7 +247,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .scroll-indicator {
   position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 6px;
-  color: rgba(239,236,225,0.45); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(239,236,225,0.65); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
 }
 .scroll-arrow { animation: bounce 2s ease-in-out infinite; }
 @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
@@ -278,10 +289,10 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .tab-meta { display: flex; flex-direction: column; gap: 2px; }
 .tab-name {
   font-family: var(--font-head); font-weight: 700; font-size: 0.95rem;
-  color: rgba(239,236,225,0.5); transition: color 0.3s;
+  color: rgba(239,236,225,0.75); transition: color 0.3s;
 }
 .tab-btn.active .tab-name { color: var(--neutral); }
-.tab-sub { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(239,236,225,0.35); }
+.tab-sub { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(239,236,225,0.7); }
 .tab-panels { position: relative; }
 .tab-panel { display: none; animation: fadeIn 0.3s ease; }
 .tab-panel.active { display: block; }
@@ -316,8 +327,11 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   flex: 0 0 calc(33.333% - 16px); margin-right: 24px;
   background: rgba(10,17,114,0.25); backdrop-filter: blur(12px);
   border: 1px solid rgba(10,17,114,0.4); border-radius: var(--radius);
-  overflow: hidden; cursor: pointer;
+  overflow: hidden; cursor: pointer; position: relative;
 }
+/* Accessible "stretched link": the real inner link covers the whole card,
+   so the card is clickable without a mouse-only div handler. */
+.carousel-card .card-link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
 .card-thumb { height: 180px; background: var(--grad-brand); position: relative; overflow: hidden; }
 .card-category {
   position: absolute; top: 12px; left: 12px;
@@ -464,11 +478,11 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
    EXPERIENCE, REDESIGNED
    ============================================================ */
 .experience-section { background: var(--slate); position: relative; overflow: hidden; }
-.exp-intro { font-size: 1.05rem; color: rgba(10,17,114,0.72); line-height: 1.8; margin: 20px 0 40px; }
+.exp-intro { font-size: 1.05rem; color: rgba(10,17,114,0.9); line-height: 1.8; margin: 20px 0 40px; }
 .exp-meta-groups { display: flex; flex-direction: column; gap: 32px; margin-bottom: 48px; }
 .exp-meta-label {
   font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-  color: rgba(10,17,114,0.48); margin-bottom: 14px;
+  color: rgba(10,17,114,0.9); margin-bottom: 14px;
 }
 .exp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .exp-chip {
@@ -495,7 +509,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   object-fit: contain; flex-shrink: 0;
 }
 .exp-ticker-logo.logo-dark { filter: brightness(0.35) contrast(1.15); }
-.exp-note { font-size: 0.72rem; color: rgba(10,17,114,0.45); font-style: italic; margin-top: 18px; }
+.exp-note { font-size: 0.72rem; color: rgba(10,17,114,0.9); font-style: italic; margin-top: 18px; }
 
 /* ============================================================
    SKILLS
@@ -526,7 +540,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .cert-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 .cert-credential { font-family: var(--font-head); font-weight: 900; font-size: 1.5rem; color: var(--navy); letter-spacing: 0.04em; }
 .cert-name { font-family: var(--font-head); font-weight: 700; font-size: 0.95rem; color: var(--navy); text-align: center; max-width: 180px; }
-.cert-issuer { font-size: 0.78rem; color: rgba(10,17,114,0.6); text-align: center; }
+.cert-issuer { font-size: 0.78rem; color: rgba(10,17,114,0.9); text-align: center; }
 
 /* ============================================================
    WORKS PAGE
@@ -537,7 +551,7 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .filter-btn {
   padding: 9px 20px; border-radius: 50px; font-size: 0.78rem; font-weight: 700;
   letter-spacing: 0.06em; text-transform: uppercase;
-  border: 1px solid rgba(10,17,114,0.3); color: var(--navy);
+  border: 1px solid rgba(10,17,114,0.5); color: var(--navy);
   background: rgba(10,17,114,0.07); transition: var(--transition); cursor: pointer;
 }
 .filter-btn:hover, .filter-btn.active { background: var(--mango); border-color: var(--mango); color: var(--navy); }
@@ -555,7 +569,9 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
   opacity: 0; transition: opacity 0.35s; padding: 20px;
   display: flex; flex-direction: column; justify-content: flex-end;
 }
-.work-card:hover .work-card-overlay { opacity: 1; }
+.work-card:hover .work-card-overlay,
+.work-card:focus .work-card-overlay,
+.work-card:focus-within .work-card-overlay { opacity: 1; }
 .work-card-overlay-desc { font-size: 0.85rem; color: rgba(239,236,225,0.85); line-height: 1.55; margin-bottom: 12px; }
 .work-card-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--mango); font-weight: 700; font-size: 0.82rem; }
 .work-card-meta { padding: 20px; }
@@ -591,12 +607,19 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .form-group label { display: block; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(10,17,114,0.9); margin-bottom: 8px; }
 .form-group input, .form-group select, .form-group textarea {
   width: 100%; padding: 14px 18px;
-  background: rgba(255,255,255,0.6); border: 1px solid rgba(10,17,114,0.2);
+  background: rgba(255,255,255,0.6); border: 1px solid rgba(10,17,114,0.5);
   border-radius: 10px; color: var(--navy); font-family: var(--font-body); font-size: 0.95rem;
   transition: border-color 0.2s; appearance: none;
 }
 .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(10,17,114,0.35); }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--sky); background: rgba(255,255,255,0.8); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--sky); background: rgba(255,255,255,0.8); }
+/* Visible keyboard focus ring on form fields (was previously removed) */
+.form-group input:focus-visible, .form-group select:focus-visible, .form-group textarea:focus-visible { outline: 2px solid var(--sky); outline-offset: 2px; }
+/* Inline validation messages */
+.field-error { display: block; color: #b3261e; font-size: 0.78rem; margin-top: 6px; min-height: 1em; }
+.form-group input[aria-invalid="true"], .form-group select[aria-invalid="true"], .form-group textarea[aria-invalid="true"] { border-color: #b3261e; }
+/* Honeypot: visually hidden but present for bots */
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .form-group select option { background: #fff; color: var(--navy); }
 .form-group textarea { resize: vertical; min-height: 130px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -633,7 +656,7 @@ footer {
 }
 .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px,5vw,60px); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
 .footer-brand p { font-size: 0.85rem; font-style: italic; color: rgba(239,236,225,0.55); margin: 6px 0; }
-.footer-copy { font-size: 0.75rem; color: rgba(239,236,225,0.35); margin-top: 16px; }
+.footer-copy { font-size: 0.75rem; color: rgba(239,236,225,0.6); margin-top: 16px; }
 .footer-nav { display: flex; flex-direction: column; gap: 12px; }
 .footer-nav a { font-size: 0.82rem; color: rgba(239,236,225,0.65); transition: color 0.2s; cursor: pointer; }
 .footer-nav a:hover { color: var(--mango); }
@@ -712,11 +735,11 @@ footer {
 </nav>
 
 <!-- MOBILE OVERLAY -->
-<div class="nav-overlay" id="nav-overlay" role="dialog" aria-label="Navigation menu">
-  <a href="#home"    onclick="closeMenu()">Home</a>
-  <a href="#about"   onclick="closeMenu()">About</a>
-  <a href="#works"   onclick="closeMenu()">Works</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
+<div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <a href="#home"    onclick="goTo('home'); return false;">Home</a>
+  <a href="#about"   onclick="goTo('about'); return false;">About</a>
+  <a href="#works"   onclick="goTo('works'); return false;">Works</a>
+  <a href="#contact" onclick="goTo('contact'); return false;">Contact</a>
 </div>
 
 <main id="main">
@@ -724,13 +747,13 @@ footer {
 <!-- ██████████████████████████████
      PAGE: HOME
      ██████████████████████████████ -->
-<section id="page-home" class="page active">
+<section id="home" class="page active">
 
   <!-- HERO -->
   <section class="hero-section" aria-labelledby="hero-name">
     <div class="hero-social">
       <a href="https://linkedin.com/in/kaisaks" target="_blank" rel="noopener" aria-label="LinkedIn profile">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <svg aria-hidden="true" focusable="false" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
     </div>
     <div class="hero-inner">
@@ -753,7 +776,7 @@ footer {
     </div>
     <div class="scroll-indicator" aria-hidden="true">
       <span class="scroll-arrow">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </span>
       <span>Scroll</span>
     </div>
@@ -769,8 +792,8 @@ footer {
         </div>
         <div class="fade-up delay-1">
           <h2 style="color:var(--navy);margin-bottom:20px;">Building programs that actually <em class="accent">stick.</em></h2>
-          <p style="color:rgba(10,17,114,0.82);line-height:1.8;margin-bottom:16px;">I've spent my career at the intersection of how people learn and how organizations grow. My foundation is L&amp;D, designing curricula and programs that build real skills, not just check compliance boxes.</p>
-          <p style="color:rgba(10,17,114,0.82);line-height:1.8;margin-bottom:32px;">In recent years, I've specialized in AI Enablement: helping organizations move from AI curiosity to genuine, sustainable adoption. This means designing the training, building the readiness frameworks, and managing the change that makes AI actually work for the humans using it.</p>
+          <p style="color:rgba(10,17,114,0.9);line-height:1.8;margin-bottom:16px;">I've spent my career at the intersection of how people learn and how organizations grow. My foundation is L&amp;D, designing curricula and programs that build real skills, not just check compliance boxes.</p>
+          <p style="color:rgba(10,17,114,0.9);line-height:1.8;margin-bottom:32px;">In recent years, I've specialized in AI Enablement: helping organizations move from AI curiosity to genuine, sustainable adoption. This means designing the training, building the readiness frameworks, and managing the change that makes AI actually work for the humans using it.</p>
           <a href="#about" class="btn btn-primary" onclick="goTo('about'); return false;">About Me →</a>
         </div>
       </div>
@@ -870,50 +893,50 @@ footer {
       <div class="carousel-outer">
         <div class="carousel-track" id="home-carousel">
           <!-- AI Enablement -->
-          <div class="carousel-card" onclick="window.location='ai-readiness-assessment.html'" style="cursor:pointer;">
+          <div class="carousel-card">
             <div class="card-thumb" style="background-image:url('images/AI Readiness Thumbnail.png');background-size:cover;background-position:center top;"><span class="card-category">AI Enablement</span></div>
             <div class="card-body">
               <p class="card-title">AI Readiness Index</p>
               <p class="card-desc">Interactive 6-dimension diagnostic for evaluating AI readiness in distributed service organizations.</p>
-              <a href="ai-readiness-assessment.html" class="card-link">View <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              <a href="ai-readiness-assessment.html" class="card-link">View <svg aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
             </div>
           </div>
           <!-- L&D Design -->
-          <div class="carousel-card" onclick="window.location='learning-needs-analysis.html'" style="cursor:pointer;">
+          <div class="carousel-card">
             <div class="card-thumb" style="background-image:url('images/LNA Thumbnail Image.png');background-size:cover;background-position:center top;"><span class="card-category">L&amp;D Design</span></div>
             <div class="card-body">
               <p class="card-title">Learning Needs Analysis</p>
               <p class="card-desc">Pre-deployment LNA mapping training gaps by audience for a dual tech rollout across 87 locations.</p>
-              <a href="learning-needs-analysis.html" class="card-link">View <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              <a href="learning-needs-analysis.html" class="card-link">View <svg aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
             </div>
           </div>
           <!-- Project & Program Management -->
-          <div class="carousel-card" onclick="window.location='rollout-artifact.html'" style="cursor:pointer;">
+          <div class="carousel-card">
             <div class="card-thumb" style="background-image:url('images/Program-Rollout-Thumbnail.png');background-size:cover;background-position:center top;"><span class="card-category">Project &amp; Program Management</span></div>
             <div class="card-body">
               <p class="card-title">Program Rollout Roadmap</p>
               <p class="card-desc">Phased rollout roadmap sequencing central-team enablement, field support, go-live, and post-launch measurement.</p>
-              <a href="rollout-artifact.html" class="card-link">View <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              <a href="rollout-artifact.html" class="card-link">View <svg aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
             </div>
           </div>
           <!-- Product Design & Management -->
-          <div class="carousel-card" onclick="window.location='product-pitch-deck.html'" style="cursor:pointer;">
+          <div class="carousel-card">
             <div class="card-thumb" style="background-image:url('images/Product-Pitch-Deck-Thumbnail.jpg');background-size:cover;background-position:center top;"><span class="card-category">Product Design &amp; Management</span></div>
             <div class="card-body">
               <p class="card-title">Product Pitch Deck</p>
               <p class="card-desc">Investor-ready pitch deck covering market sizing, unit economics, and go-to-market strategy.</p>
-              <a href="product-pitch-deck.html" class="card-link">View <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              <a href="product-pitch-deck.html" class="card-link">View <svg aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
             </div>
           </div>
         </div>
       </div>
       <div class="carousel-controls" aria-label="Carousel controls">
         <button class="carousel-btn" id="carousel-prev" aria-label="Previous slide">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </button>
-        <div class="carousel-dots" id="carousel-dots" role="tablist"></div>
+        <div class="carousel-dots" id="carousel-dots" role="group" aria-label="Choose slide"></div>
         <button class="carousel-btn" id="carousel-next" aria-label="Next slide">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
       </div>
       <div style="text-align:center;margin-top:40px;">
@@ -994,11 +1017,11 @@ footer {
       </div>
       <div class="testimonial-controls" aria-label="Testimonial controls">
         <button class="carousel-btn" id="test-prev" aria-label="Previous testimonial">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </button>
-        <div class="carousel-dots" id="test-dots" role="tablist"></div>
+        <div class="carousel-dots" id="test-dots" role="group" aria-label="Choose testimonial"></div>
         <button class="carousel-btn" id="test-next" aria-label="Next testimonial">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
       </div>
     </div>
@@ -1010,7 +1033,7 @@ footer {
 <!-- ██████████████████████████████
      PAGE: ABOUT
      ██████████████████████████████ -->
-<section id="page-about" class="page">
+<section id="about" class="page">
 
   <!-- HERO -->
   <section class="about-hero" aria-labelledby="about-heading">
@@ -1024,7 +1047,7 @@ footer {
           <div class="about-cta-row">
             <a href="#contact" class="btn btn-primary" onclick="goTo('contact'); return false;">Let's Talk</a>
             <a href="https://linkedin.com/in/kaisaks" target="_blank" rel="noopener" class="about-linkedin">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              <svg aria-hidden="true" focusable="false" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
               LinkedIn
             </a>
           </div>
@@ -1186,13 +1209,13 @@ footer {
 <!-- ██████████████████████████████
      PAGE: WORKS
      ██████████████████████████████ -->
-<section id="page-works" class="page">
+<section id="works" class="page">
   <section class="works-section" aria-labelledby="works-heading">
     <div class="section-label-wrap left" aria-hidden="true"><span class="section-label">(My Work)</span></div>
 
     <div class="works-hero">
       <h1 id="works-heading" style="color:var(--navy);" class="fade-up">Crafting <em class="accent">results</em> that endure.</h1>
-      <p style="color:rgba(10,17,114,0.7);margin-top:16px;font-size:1rem;line-height:1.75;" class="fade-up delay-1">A collection of frameworks, tools, and deliverables built to drive real outcomes. Selected work shown here, additional samples available on request.</p>
+      <p style="color:rgba(10,17,114,0.9);margin-top:16px;font-size:1rem;line-height:1.75;" class="fade-up delay-1">A collection of frameworks, tools, and deliverables built to drive real outcomes. Selected work shown here, additional samples available on request.</p>
     </div>
 
     <div class="filter-tabs" role="tablist" aria-label="Filter work by category">
@@ -1297,7 +1320,7 @@ footer {
 <!-- ██████████████████████████████
      PAGE: CONTACT
      ██████████████████████████████ -->
-<section id="page-contact" class="page">
+<section id="contact" class="page">
   <section class="contact-section" aria-labelledby="contact-heading">
     <div class="section-label-wrap left" aria-hidden="true"><span class="section-label">(Contact Me)</span></div>
     <div class="contact-wrapper">
@@ -1308,7 +1331,7 @@ footer {
         <div class="contact-details fade-up delay-2">
           <div class="contact-detail">
             <div class="contact-detail-icon">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
             <div>
               <p class="contact-detail-label">Email</p>
@@ -1329,15 +1352,22 @@ footer {
       <!-- RIGHT: form -->
       <div class="contact-right">
         <div class="contact-form">
-          <form id="contact-form" action="https://formspree.io/f/mykqnbeg" method="POST">
+          <form id="contact-form" action="https://formspree.io/f/mykqnbeg" method="POST" novalidate>
+            <!-- Honeypot spam trap (invisible, accessible bot filter — replaces reCAPTCHA) -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="_gotcha">Leave this field empty</label>
+              <input type="text" id="_gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+            </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Name *</label>
-                <input type="text" id="name" name="name" required placeholder="Your full name">
+                <input type="text" id="name" name="name" required placeholder="Your full name" aria-describedby="err-name">
+                <span class="field-error" id="err-name" role="alert"></span>
               </div>
               <div class="form-group">
                 <label for="email">Email Address *</label>
-                <input type="email" id="email" name="email" required placeholder="you@company.com">
+                <input type="email" id="email" name="email" required placeholder="you@company.com" aria-describedby="err-email">
+                <span class="field-error" id="err-email" role="alert"></span>
               </div>
             </div>
             <div class="form-group">
@@ -1346,7 +1376,7 @@ footer {
             </div>
             <div class="form-group">
               <label for="work-type">Type of Work *</label>
-              <select id="work-type" name="work-type" required>
+              <select id="work-type" name="work-type" required aria-describedby="err-work-type">
                 <option value="" disabled selected>Select a service area</option>
                 <option>L&amp;D Design</option>
                 <option>AI Enablement</option>
@@ -1354,10 +1384,12 @@ footer {
                 <option>Product &amp; Program Design</option>
                 <option>Not sure yet</option>
               </select>
+              <span class="field-error" id="err-work-type" role="alert"></span>
             </div>
             <div class="form-group">
               <label for="message">What's on your mind? *</label>
-              <textarea id="message" name="message" rows="5" required placeholder="Tell me about your project, challenge, or idea..."></textarea>
+              <textarea id="message" name="message" rows="5" required placeholder="Tell me about your project, challenge, or idea..." aria-describedby="err-message"></textarea>
+              <span class="field-error" id="err-message" role="alert"></span>
             </div>
             <div class="form-group">
               <label for="source">How did you find me?</label>
@@ -1365,7 +1397,7 @@ footer {
             </div>
             <button type="submit" class="btn-submit" id="submit-btn">Send It →</button>
           </form>
-          <div class="form-success" id="form-success">
+          <div class="form-success" id="form-success" role="status" aria-live="polite">
             <div class="form-success-icon">✓</div>
             <h3>Got it!</h3>
             <p>I'll be in touch within 2 business days.</p>
@@ -1395,14 +1427,14 @@ footer {
       <p class="footer-copy">© 2026 Kai Saks. All rights reserved.</p>
     </div>
     <nav class="footer-nav" aria-label="Footer navigation">
-      <a onclick="goTo('home')" tabindex="0">Home</a>
-      <a onclick="goTo('about')" tabindex="0">About</a>
-      <a onclick="goTo('works')" tabindex="0">Works</a>
-      <a onclick="goTo('contact')" tabindex="0">Contact</a>
+      <a href="#home" onclick="goTo('home'); return false;">Home</a>
+      <a href="#about" onclick="goTo('about'); return false;">About</a>
+      <a href="#works" onclick="goTo('works'); return false;">Works</a>
+      <a href="#contact" onclick="goTo('contact'); return false;">Contact</a>
     </nav>
     <div class="footer-social">
       <a href="https://linkedin.com/in/kaisaks" target="_blank" rel="noopener" aria-label="Kai Saks on LinkedIn">
-        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <svg aria-hidden="true" focusable="false" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         LinkedIn
       </a>
     </div>
@@ -1413,7 +1445,7 @@ footer {
 /* ─── PAGE ROUTING ─────────────────────────────────────────── */
 function goTo(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const target = document.getElementById('page-' + page);
+  const target = document.getElementById(page);
   if (target) { target.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   document.querySelectorAll('.nav-link').forEach(a => {
     a.classList.toggle('active', a.getAttribute('href') === '#' + page);
@@ -1451,13 +1483,28 @@ hamburger.addEventListener('click', () => {
   hamburger.classList.toggle('open', isOpen);
   hamburger.setAttribute('aria-expanded', isOpen);
   document.body.style.overflow = isOpen ? 'hidden' : '';
+  if (isOpen) { const first = overlay.querySelector('a'); if (first) first.focus(); }
 });
 function closeMenu() {
+  const wasOpen = overlay.classList.contains('open');
   overlay.classList.remove('open');
   hamburger.classList.remove('open');
   hamburger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
+  if (wasOpen) hamburger.focus();   // return focus to the trigger
 }
+/* Escape to close + trap Tab within the open overlay */
+document.addEventListener('keydown', e => {
+  if (!overlay.classList.contains('open')) return;
+  if (e.key === 'Escape') { closeMenu(); return; }
+  if (e.key === 'Tab') {
+    const items = overlay.querySelectorAll('a, button');
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
 
 /* ─── SERVICES TABS ─────────────────────────────────────────── */
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1556,10 +1603,19 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 document.querySelectorAll('.work-card').forEach(card => {
-  card.addEventListener('click', () => {
+  const open = () => {
     const url = card.dataset.url;
     if (!url || url === '#' || card.dataset.status === 'coming-soon') return;
-    window.open(url, '_blank', 'noopener');
+    window.location.href = url;               // same tab — keeps one tab open
+  };
+  // Make each card a keyboard-operable link
+  card.setAttribute('role', 'link');
+  card.setAttribute('tabindex', '0');
+  const title = card.querySelector('.work-card-title');
+  if (title) card.setAttribute('aria-label', title.textContent.trim());
+  card.addEventListener('click', open);
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
   });
 });
 
@@ -1567,7 +1623,7 @@ document.querySelectorAll('.work-card').forEach(card => {
 let countDone = false;
 function initCountUp() {
   if (countDone) return;
-  const els = document.querySelectorAll('#page-about .stat-num[data-target]');
+  const els = document.querySelectorAll('#about .stat-num[data-target]');
   if (!els.length) return;
   countDone = true;
   els.forEach(el => {
@@ -1596,9 +1652,34 @@ document.addEventListener('DOMContentLoaded', observeFadeUps);
 const form      = document.getElementById('contact-form');
 const success   = document.getElementById('form-success');
 const submitBtn = document.getElementById('submit-btn');
+function setError(id, msg) {
+  const field = document.getElementById(id);
+  const err = document.getElementById('err-' + id);
+  if (err) err.textContent = msg || '';
+  if (field) field.setAttribute('aria-invalid', msg ? 'true' : 'false');
+}
+function validateForm() {
+  let firstInvalid = null;
+  const checks = [
+    ['name', v => v.trim() ? '' : 'Please enter your name.'],
+    ['email', v => !v.trim() ? 'Please enter your email address.'
+      : (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : 'Please enter a valid email address, e.g. name@company.com.')],
+    ['work-type', v => v ? '' : 'Please select a type of work.'],
+    ['message', v => v.trim() ? '' : 'Please tell me a little about your project.']
+  ];
+  checks.forEach(([id, test]) => {
+    const field = document.getElementById(id);
+    const msg = test(field.value);
+    setError(id, msg);
+    if (msg && !firstInvalid) firstInvalid = field;
+  });
+  if (firstInvalid) firstInvalid.focus();
+  return !firstInvalid;
+}
 if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
     try {
@@ -1614,11 +1695,15 @@ if (form) {
 }
 
 /* ─── KEYBOARD NAV ──────────────────────────────────────────── */
-document.querySelector('.nav-logo').addEventListener('keydown', e => {
-  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo('home'); }
-});
-document.querySelector('.view-all').addEventListener('keydown', e => {
-  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo('works'); }
+/* Keyboard support for any span/element acting as a button or link
+   (nav logo, "View All", "View All Work", etc.). Real <a href> and the
+   work cards are handled elsewhere, so skip them. */
+document.querySelectorAll('[role="button"], [role="link"]').forEach(el => {
+  if (el.hasAttribute('href') || el.classList.contains('work-card')) return;
+  if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+  });
 });
 /* ─── LOGO LIGHTBOX ─────────────────────────────────────────── */
 </script>
