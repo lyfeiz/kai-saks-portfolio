@@ -620,6 +620,9 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 .form-group input[aria-invalid="true"], .form-group select[aria-invalid="true"], .form-group textarea[aria-invalid="true"] { border-color: #b3261e; }
 /* Honeypot: visually hidden but present for bots */
 .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+/* Submit-level error (e.g., service unavailable) with email fallback */
+.submit-error { margin-top: 16px; color: #b3261e; font-size: 0.9rem; line-height: 1.5; text-align: center; }
+.submit-error a { color: #b3261e; text-decoration: underline; font-weight: 700; }
 .form-group select option { background: #fff; color: var(--navy); }
 .form-group textarea { resize: vertical; min-height: 130px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -1396,6 +1399,10 @@ footer {
               <input type="text" id="source" name="source" placeholder="LinkedIn, referral, search...">
             </div>
             <button type="submit" class="btn-submit" id="submit-btn">Send It →</button>
+            <p class="submit-error" id="submit-error" role="alert" hidden>
+              Sorry — something went wrong sending your message. Please email me directly at
+              <a href="mailto:hello@kaisaks.com">hello@kaisaks.com</a>.
+            </p>
           </form>
           <div class="form-success" id="form-success" role="status" aria-live="polite">
             <div class="form-success-icon">✓</div>
@@ -1687,11 +1694,20 @@ if (form) {
         method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }
       });
       if (res.ok) { form.style.display = 'none'; success.classList.add('show'); }
-      else { submitBtn.textContent = 'Error, please try again'; submitBtn.disabled = false; }
+      else {
+        const data = await res.json().catch(() => ({}));
+        showSubmitError(data && data.error);
+        submitBtn.textContent = 'Send It →'; submitBtn.disabled = false;
+      }
     } catch {
-      submitBtn.textContent = 'Error, please try again'; submitBtn.disabled = false;
+      showSubmitError();
+      submitBtn.textContent = 'Send It →'; submitBtn.disabled = false;
     }
   });
+}
+function showSubmitError() {
+  const box = document.getElementById('submit-error');
+  if (box) box.hidden = false;
 }
 
 /* ─── KEYBOARD NAV ──────────────────────────────────────────── */
